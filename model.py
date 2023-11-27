@@ -249,7 +249,7 @@ class model:
 
 
         else:
-            A_g_prime      = self.params["A_g"] * tf.ones(shape = (self.params['batch_size'],1) )
+            A_g_prime      = tf.constant(self.params["A_g"],dtype=float32) * tf.ones(shape = (self.params['batch_size'],1) )
 
 
 
@@ -283,7 +283,14 @@ class model:
     
         if "post_damage" in self.params["model_type"] and "post_tech" in self.params["model_type"]:
             X = tf.concat([logK, R, Y, gamma_3, log_xi, A_g_prime], 1)
-            
+            # print("logK dtype:", logK.dtype)
+            # print("R dtype:", R.dtype)
+            # print("Y dtype:", Y.dtype)
+            # print("gamma_3 dtype:", gamma_3.dtype)
+            # print("log_xi dtype:", log_xi.dtype)
+            # print("A_g_prime dtype:", A_g_prime.dtype)
+            # print("A_g_prime dtype:", A_g_prime)
+            # print("log_xi dtype:", log_xi)
             
         if "post_damage" in self.params["model_type"] and "pre_tech" in self.params["model_type"]:
             X = tf.concat([logK, R, Y, gamma_3, log_xi, log_I_g], 1)
@@ -765,8 +772,8 @@ class model:
 
                 ## Generate checkpoints for tensorboard
                 if self.params['tensorboard']:
-                    grad_v_nn     = self.grad(logK, R, Y, gamma_3, log_xi, log_I_g, compute_control= False, training=True)
-                    grad_controls = self.grad(logK, R, Y, gamma_3, log_xi, log_I_g, compute_control= True, training=True)
+                    grad_v_nn     = self.grad(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, compute_control= False, training=True)
+                    grad_controls = self.grad(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, compute_control= True, training=True)
 
                     with self.test_writer.as_default():
 
