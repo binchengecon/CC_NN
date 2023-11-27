@@ -137,7 +137,8 @@ if not (pathlib.Path(params["export_folder"] + "/v_nn_checkpoint_post_damage_pos
     test_model.analyze()
 
     log_xi_list                  = [float(np.log(xi)) for xi in np.linspace(np.exp(log_xi_min) + 0.02, np.exp(log_xi_max) - 0.02, 10)]
-
+    print(export_folder)
+    print(log_xi_idx)
     for log_xi_idx in range(len(log_xi_list)):
         test_model.simulate_path_post_tech_post_jump(1000, 1.0 / 12.0, 
                                                         test_model.params["gamma_3"], 

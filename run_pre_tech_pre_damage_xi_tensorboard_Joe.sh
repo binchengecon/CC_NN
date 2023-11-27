@@ -11,8 +11,7 @@ pretrained_post_tech_pre_damage_export_folder="None"
 log_xi_min="-3.0"
 log_xi_max="-1.5"
 batch_size="32"
-# num_iterations="2000000"
-num_iterations="10"
+num_iterations="2000000"
 A_g_prime_min="0.1"
 A_g_prime_max="0.2"
 logging_frequency="1000"
@@ -37,7 +36,7 @@ echo "#!/bin/bash
 #SBATCH --time=0-36:00:00
 #SBATCH --account=pi-lhansen
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu2:1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
 # module load tensorflow/2.1

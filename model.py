@@ -4,6 +4,7 @@
 ######################################################################
 ######################################################################
 
+#note line 1425-1436: distorted probability
 
 import numpy as np
 import tensorflow as tf
@@ -126,7 +127,7 @@ class model:
             self.params["A_g"]        = self.solution_fd["A_B"] ### Need to fix this; shouldn't be hard-coded
             self.params["log_xi"]         = np.log(self.solution_fd["xi"])
 
-        self.params["A_g_prime_list"]     = np.linspace(self.params["A_g_prime_min"], self.params["A_g_prime_max"], self.params["A_g_prime_length"]).tolist
+        self.params["A_g_prime_list"]     = np.linspace(self.params["A_g_prime_min"], self.params["A_g_prime_max"], self.params["A_g_prime_length"]).tolist()
         self.params["gamma_3_list"]       = np.linspace(self.params["gamma_3_min"], self.params["gamma_3_max"], self.params["gamma_3_length"]).tolist()
 
         ## Create tensors to store normalizing constants 
@@ -249,7 +250,7 @@ class model:
 
 
         else:
-            A_g_prime      = tf.constant(self.params["A_g"],dtype=float32) * tf.ones(shape = (self.params['batch_size'],1) )
+            A_g_prime      = self.params["A_g"] * tf.ones(shape = (self.params['batch_size'],1) )
 
 
 
@@ -357,7 +358,7 @@ class model:
 
             for j in range(self.params["A_g_prime_length"]):
 
-                X_post_tech_pre_damage = tf.concat([logK, R, Y, log_xi, log_I_g, 
+                X_post_tech_pre_damage = tf.concat([logK, R, Y, log_xi, 
                 tf.ones(tf.shape(Y)) * self.params["A_g_prime_list"][j]], 1)
                 v_j                    = self.v_post_tech_pre_damage_nn(X_post_tech_pre_damage)
                 v_j_vals.append( v_j )
@@ -459,6 +460,8 @@ class model:
 
                     for j in range(self.params["A_g_prime_length"]):
 
+                        v_diff = v_j_vals[j] - v
+
                         rhs = rhs + tf.exp(log_I_g) / self.params["varrho"] * g_js[j] * (v_j_vals[j] - v) +  \
                         xi * ( tf.exp(log_I_g) / self.params['varrho'] * (1.0 - g_js[j] + g_js[j] * g_j_logs[j]) )
 
@@ -470,7 +473,7 @@ class model:
                         
                         rhs = rhs + I_d *  (f_ms[k] * ( v_m_vals[k] - v ) + \
                         xi * (1.0 - f_ms[k] + f_ms[k] * f_m_logs[k]  )) / self.params['gamma_3_length']
-                    
+
                     
             elif "pre_tech" in self.params["model_type"] and "post_damage" in self.params["model_type"]:
                 
@@ -481,10 +484,14 @@ class model:
 
 
                 for j in range(self.params["A_g_prime_length"]):
+                    
+
                     X_post_tech_post_damage                   = tf.concat([logK, R, Y, gamma_3, log_xi, tf.ones(tf.shape(Y)) * self.params["A_g_prime_list"][j]], 1)
     
                     v_j                    =  self.v_post_tech_post_damage_nn(X_post_tech_post_damage) 
                     v_j_vals.append( v_j )
+
+                    v_diff = v_j - v
 
                     g_j       = tf.exp(-1.0/ xi * (v_j - v))
                     g_j_log   = -1.0/ xi * (v_j - v)
@@ -639,6 +646,10 @@ class model:
         else:
             logK, R, Y, gamma_3, A_g_prime, log_xi = self.sample()
             log_I_g = None 
+
+        # print("Testing")
+        # print(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
+        # print("Testing")
 
         ## First, train value function
         
@@ -1267,9 +1278,9 @@ class model:
 
                 state_post_tech_pre_damage    = tf.convert_to_tensor( [[ state_list[t][0,0], state_list[t][0,1], state_list[t][0,2],
                     state_list[t][0,3], self.params["A_g_prime_list"][j]]] )
-                state_pre_tech_post_damage        = tf.reshape(state_pre_tech_post_damage, (1,5))
+                state_post_tech_pre_damage        = tf.reshape(state_post_tech_pre_damage, (1,5))
                 
-                v_j                           = self.v_pre_tech_post_damage_nn(state_pre_tech_post_damage)
+                v_j                           = self.v_post_tech_pre_damage_nn(state_post_tech_pre_damage)
                 g_j       = tf.exp(-1.0/  np.exp(log_xi) * (v_j - v))
                 g_js.append(g_j)
 
@@ -1411,17 +1422,19 @@ class model:
         # np.savetxt(export_folder + "/g_simulation.txt", np.array([g.numpy()[0,0] for g in g_list]))
         # ## Distorted probability
 
-        I_g        =  np.exp(np.array( [state.numpy()[0,4] for state in state_list] ))
-        g          = [g.numpy()[0,0] for g in g_list]
-        integrand  =  I_g * g * dt 
-        integral   = -np.cumsum(integrand)
-        distorted_probability = 1.0 - np.exp(integral)
 
-        plt.figure()
-        plt.plot(distorted_probability)
-        plt.xlabel("month")
-        plt.title(r'Distorted probability - tech jump')
-        plt.savefig(export_folder + "/distort_prob_tech_simulation.png")
+
+        # I_g        =  np.exp(np.array( [state.numpy()[0,4] for state in state_list] ))
+        # g          = [g.numpy()[0,0] for g in g_js_list]
+        # integrand  =  I_g * g * dt 
+        # integral   = -np.cumsum(integrand)
+        # distorted_probability = 1.0 - np.exp(integral)
+
+        # plt.figure()
+        # plt.plot(distorted_probability)
+        # plt.xlabel("month")
+        # plt.title(r'Distorted probability - tech jump')
+        # plt.savefig(export_folder + "/distort_prob_tech_simulation.png")
 
 
 
