@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --job-name=runtd
+#SBATCH --output=runtd.out
+#SBATCH --error=runtd.err
+#SBATCH --time=0-36:00:00
+#SBATCH --account=pi-lhansen
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=32G
+# module load tensorflow/2.1
+# module unload cuda
+# module unload python
+# module load cuda/11.2
+module load python/anaconda-2021.05
+
+python pre_tech_post_damage.py /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1/pre_tech_post_damage -3.0 -1.5 32 2000000 0.1 0.2  None 1000 10e-5,10e-5,10e-5,10e-5 swish,tanh,tanh,softplus None,custom,custom,softplus 4 32 None 0.025 True
+python post_tech_pre_damage.py /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1/post_tech_pre_damage /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1/pre_tech_post_damage -3.0 -1.5 32 2000000  0.1 0.2   None 1000 10e-5,10e-5,10e-5,10e-5 swish,tanh,tanh,softplus None,custom,custom,softplus 4 32 None 0.025 True
+python pre_tech_pre_damage.py /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1 /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1/post_tech_pre_damage /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1/pre_tech_post_damage -10 -3.0 -1.5 32 2000000  0.1 0.2   None 1000 10e-5,10e-5,10e-5,10e-5 swish,tanh,tanh,softplus None,custom,custom,softplus 4 32 None 0.025 True

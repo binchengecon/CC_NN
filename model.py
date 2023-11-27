@@ -123,9 +123,10 @@ class model:
             self.params["Y_max"]          = self.solution_fd["T_max"]
 
             self.params["gamma_3"]        = self.solution_fd["gamma_3"] ### Need to fix this; shouldn't be hard-coded
+            self.params["A_g"]        = self.solution_fd["A_B"] ### Need to fix this; shouldn't be hard-coded
             self.params["log_xi"]         = np.log(self.solution_fd["xi"])
 
-        self.params["A_g_prime_list"] = np.linspace(self.params["A_g_prime_min"], self.params["A_g_prime_max"], self.params["A_g_prime_length"]).tolist
+        self.params["A_g_prime_list"]     = np.linspace(self.params["A_g_prime_min"], self.params["A_g_prime_max"], self.params["A_g_prime_length"]).tolist
         self.params["gamma_3_list"]       = np.linspace(self.params["gamma_3_min"], self.params["gamma_3_max"], self.params["gamma_3_length"]).tolist()
 
         ## Create tensors to store normalizing constants 
@@ -155,8 +156,8 @@ class model:
 
             self.v_pre_tech_post_damage_nn = FeedForwardSubNet(self.params['v_nn_config'])
 
-            self.v_pre_tech_post_damage_nn.build( (self.params["batch_size"], 7) ) 
-            ## 5 inputs here: logK, R, Y, gamma_3, and log_I_g,  (xi as a hidden state variable), + A_g
+            self.v_pre_tech_post_damage_nn.build( (self.params["batch_size"], 6) ) 
+            ## 6 inputs here: logK, R, Y, gamma_3, and log_I_g,  (xi as a hidden state variable)
 
             self.v_pre_tech_post_damage_nn.load_weights( self.params["v_pre_tech_post_damage_nn_path"]  + '/v_nn_checkpoint_pre_tech_post_damage')
 
@@ -164,7 +165,7 @@ class model:
             self.v_post_tech_pre_damage_nn = FeedForwardSubNet(self.params['v_nn_config'])
 
             self.v_post_tech_pre_damage_nn.build( (self.params["batch_size"], 5) ) 
-            ## 3 inputs here: logK, R, Y, (xi as a hidden state variable), + A_g
+            ## 5 inputs here: logK, R, Y, (xi as a hidden state variable), + A_g
 
             self.v_post_tech_pre_damage_nn.load_weights( self.params["v_post_tech_pre_damage_nn_path"]  + '/v_nn_checkpoint_pre_damage_post_tech')
 
@@ -265,13 +266,13 @@ class model:
             offsets            = tf.random.uniform(shape=(self.params['batch_size'],1), minval=0.0, maxval=1.0)
             log_I_g            = tf.random.shuffle(self.params["state_intervals"]["log_I_g"][:-1] + self.params["state_intervals"]["log_I_g_interval_size"] * offsets)
 
-            return logK, R, Y, gamma_3, log_xi, log_I_g, A_g_prime
+            return logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g
 
         else:
-            return logK, R, Y, gamma_3, log_xi, A_g_prime
+            return logK, R, Y, gamma_3, A_g_prime, log_xi
 
     @tf.function
-    def pde_rhs(self, logK, R, Y, gamma_3, log_xi, log_I_g = None, A_g_prime = None, training = True):
+    def pde_rhs(self, logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g = None, training = True):
 
         ## This is the RHS of the HJB equation
 
@@ -334,49 +335,33 @@ class model:
             v_j_vals = []
             
             for k in range(self.params["gamma_3_length"]):
-                for j in range(self.params["A_g_prime_length"]):
                     
-                    X_pre_tech_post_damage = tf.concat([logK, R, Y, 
-                    tf.ones(tf.shape(Y)) * self.params["gamma_3_list"][k], log_xi, log_I_g, 
-                    tf.ones(tf.shape(Y)) * self.params["A_g_prime_list"][j]], 1)
-                    v_m                    = self.v_pre_tech_post_damage_nn(X_pre_tech_post_damage)
-                    v_m_vals.append( v_m )
-                    f_m       = tf.exp(-1.0/ xi * (v_m - v))
-                    f_m_log   = -1.0/ xi * (v_m - v)
+                X_pre_tech_post_damage = tf.concat([logK, R, Y, 
+                tf.ones(tf.shape(Y)) * self.params["gamma_3_list"][k], log_xi, log_I_g], 1)
+                v_m                    = self.v_pre_tech_post_damage_nn(X_pre_tech_post_damage)
+                v_m_vals.append( v_m )
+                f_m       = tf.exp(-1.0/ xi * (v_m - v))
+                f_m_log   = -1.0/ xi * (v_m - v)
 
-                    f_ms.append(f_m)
-                    f_m_logs.append(f_m_log)
-
+                f_ms.append(f_m)
+                f_m_logs.append(f_m_log)
 
 
 
-                    X_post_tech_pre_damage = tf.concat([logK, R, Y, 
-                    tf.ones(tf.shape(Y)) * self.params["gamma_3_list"][k], log_xi, log_I_g, 
-                    tf.ones(tf.shape(Y)) * self.params["A_g_prime_list"][k]], 1)
-                    v_j                    = self.v_post_tech_pre_damage_nn(X_post_tech_pre_damage)
-                    v_j_vals.append( v_j )
-                    v_diff_temp                        = v_j - v
-                    g_j_temp                           = tf.exp(-1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff_temp , 0.0000000001), [self.params["batch_size"], 1])  ))
-                    g_j_log_temp                       = -1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff_temp , 0.0000000001), [self.params["batch_size"], 1])  )
-                    
-                    # g_j       = tf.exp(-1.0/ xi * (v_j - v))
-                    # g_j_log   = -1.0/ xi * (v_j - v)
-                    
-                    g_j       = g_j_temp
-                    g_j_log   = g_j_log_temp
-                    
-                    
-                    g_js.append(g_j)
-                    g_j_logs.append(g_j_log)
+            for j in range(self.params["A_g_prime_length"]):
+
+                X_post_tech_pre_damage = tf.concat([logK, R, Y, log_xi, log_I_g, 
+                tf.ones(tf.shape(Y)) * self.params["A_g_prime_list"][j]], 1)
+                v_j                    = self.v_post_tech_pre_damage_nn(X_post_tech_pre_damage)
+                v_j_vals.append( v_j )
+                v_diff_temp                        = v_j - v
+                g_j                           = tf.exp(-1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff_temp , 0.0000000001), [self.params["batch_size"], 1])  ))
+                g_j_log                       = -1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff_temp , 0.0000000001), [self.params["batch_size"], 1])  )
+                
+                g_js.append(g_j)
+                g_j_logs.append(g_j_log)
 
 
-
-            # X_post_tech_pre_damage        = tf.concat([logK, R, Y, log_xi], 1)
-            # v_post_tech_pre_damage        = self.v_post_tech_pre_damage_nn(X_post_tech_pre_damage)
-
-
-            # g                             = tf.exp(-1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff , 0.0000000001), [self.params["batch_size"], 1])  ))
-            # log_g                         = -1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff , 0.0000000001), [self.params["batch_size"], 1])  )
 
         ## Compute h which is present in all models
         h                             =   - 1.0 /  xi  * (( dv_dY  - (self.params['gamma_1'] \
@@ -436,29 +421,27 @@ class model:
         # Entropy computation
         ## post tech and pre damage model
         if "post_tech" in self.params["model_type"] and "pre_damage" in self.params["model_type"]:
-                I_d   = self.params['r_1'] * ( tf.exp( self.params['r_2'] / 2 * tf.pow(Y - self.params['y_lower_bar'],2) ) - 1  ) * \
-                tf.cast(Y > self.params['y_lower_bar'], tf.float32 )
+            I_d   = self.params['r_1'] * ( tf.exp( self.params['r_2'] / 2 * tf.pow(Y - self.params['y_lower_bar'],2) ) - 1  ) * \
+            tf.cast(Y > self.params['y_lower_bar'], tf.float32 )
 
-                f_ms     = []
-                f_m_logs = []
-                v_m_vals = []
+            f_ms     = []
+            f_m_logs = []
+            v_m_vals = []
 
+            for k in range(self.params["gamma_3_length"]):
+                X_post_tech_post_damage                   = tf.concat([logK, R, tf.ones(tf.shape(Y)) * self.params["y_bar"], tf.ones(tf.shape(Y)) * self.params["gamma_3_list"][k], log_xi, A_g_prime], 1)
 
+                v_m                    =  self.v_post_tech_post_damage_nn(X_post_tech_post_damage) 
+                v_m_vals.append( v_m )
 
-                for k in range(self.params["gamma_3_length"]):
-                    X_post_tech_post_damage                   = tf.concat([logK, R, tf.ones(tf.shape(Y)) * self.params["y_bar"], tf.ones(tf.shape(Y)) * self.params["gamma_3_list"][k], log_xi, A_g_prime], 1)
-    
-                    v_m                    =  self.v_post_tech_post_damage_nn(X_post_tech_post_damage) 
-                    v_m_vals.append( v_m )
+                f_m       = tf.exp(-1.0/ xi * (v_m - v))
+                f_m_log   = -1.0/ xi * (v_m - v)
 
-                    f_m       = tf.exp(-1.0/ xi * (v_m - v))
-                    f_m_log   = -1.0/ xi * (v_m - v)
+                f_ms.append(f_m)
+                f_m_logs.append( f_m_log  )
 
-                    f_ms.append(f_m)
-                    f_m_logs.append( f_m_log  )
-
-                    rhs = rhs + I_d *  (f_ms[k] * ( v_m_vals[k] - v ) + \
-                    xi * (1.0 - f_ms[k] + f_ms[k] * f_m_logs[k] )) / self.params['gamma_3_length']
+                rhs = rhs + I_d *  (f_ms[k] * ( v_m_vals[k] - v ) + \
+                xi * (1.0 - f_ms[k] + f_ms[k] * f_m_logs[k] )) / self.params['gamma_3_length']
                     
 
         if self.params["n_dims"] == 4:
@@ -483,15 +466,28 @@ class model:
                     
                     
             elif "pre_tech" in self.params["model_type"] and "post_damage" in self.params["model_type"]:
-                X_post_tech_post_damage                   = tf.concat([logK, R, Y, gamma_3, log_xi], 1)
-                v_post_tech_post_damage                   = self.v_post_tech_post_damage_nn(X_post_tech_post_damage)
+                
+                g_js     = []
+                g_j_logs = []
+                v_j_vals = []
 
-                v_diff                        = v_post_tech_post_damage - v
 
-                g                             = tf.exp(-1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff , 0.000000001), [self.params["batch_size"], 1])  ))
-                log_g                         = -1.0/ xi * (  tf.reshape( tf.math.maximum( v_diff , 0.000000001), [self.params["batch_size"], 1])  )
-                rhs = rhs + tf.exp(log_I_g) / self.params["varrho"] * g * (v_post_tech_post_damage - v) +  \
-                xi * ( tf.exp(log_I_g) / self.params['varrho'] * (1.0 - g + g * log_g) ) 
+
+                for j in range(self.params["A_g_prime_length"]):
+                    X_post_tech_post_damage                   = tf.concat([logK, R, Y, gamma_3, log_xi, tf.ones(tf.shape(Y)) * self.params["A_g_prime_list"][j]], 1)
+    
+                    v_j                    =  self.v_post_tech_post_damage_nn(X_post_tech_post_damage) 
+                    v_j_vals.append( v_j )
+
+                    g_j       = tf.exp(-1.0/ xi * (v_j - v))
+                    g_j_log   = -1.0/ xi * (v_j - v)
+
+                    g_js.append(g_j)
+                    g_j_logs.append( g_j_log  )
+
+                    rhs = rhs + tf.exp(log_I_g) / self.params["varrho"] *  (g_js[j] * ( v_j_vals[j] - v ) + \
+                    xi * (1.0 - g_js[j] + g_js[j] * g_j_logs[j] ))
+                    
         ## FOCs
 
         marginal_util_c_over_k = self.params["delta"] / inside_log
@@ -509,16 +505,16 @@ class model:
             return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, marginal_util_c_over_k, FOC_g, FOC_d
 
     @tf.function
-    def objective_fn(self, logK, R, Y, gamma_3, log_xi, log_I_g = None, compute_control = False, training = True):
+    def objective_fn(self, logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g = None, compute_control = False, training = True):
 
         ## This is the objective function that stochastic gradient descend will try to minimize
         ## It depends on which NN it is training. Controls and value functions have different
         ## objectives.
 
         if self.params["n_dims"] == 4:
-            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, log_xi, log_I_g)
+            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
         else:
-            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, marginal_utility_of_consumption_norm, FOC_g, FOC_d                       = self.pde_rhs(logK, R, Y, gamma_3, log_xi, log_I_g)
+            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, marginal_utility_of_consumption_norm, FOC_g, FOC_d                       = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
 
         epsilon = 10e-4
         negative_consumption_boolean = tf.reshape( tf.cast( c < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1])
@@ -605,11 +601,11 @@ class model:
                 return tf.sqrt(tf.reduce_mean(tf.square((rhs - pv)  / self.flow_pv_norm ))), -tf.reduce_mean(rhs  / self.flow_pv_norm ), tf.sqrt(tf.reduce_mean(tf.square(loss_dv_dY / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_c / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_g / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_d / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(FOC_g / self.marginal_utility_of_consumption_norm))), \
                     tf.sqrt(tf.reduce_mean(tf.square(FOC_d / self.marginal_utility_of_consumption_norm))) 
 
-    def grad(self, logK, R, Y, gamma_3, log_xi, log_I_g = None, compute_control = False, training = True):
+    def grad(self, logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g = None, compute_control = False, training = True):
 
         if compute_control:
             with tf.GradientTape(persistent=True) as tape:
-                objective = self.objective_fn(logK, R, Y, gamma_3, log_xi, log_I_g, compute_control, training)
+                objective = self.objective_fn(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, compute_control, training)
 
             if self.params['n_dims'] == 4:
                 trainable_variables = self.i_g_nn.trainable_variables + self.i_d_nn.trainable_variables + self.i_I_nn.trainable_variables
@@ -623,7 +619,7 @@ class model:
             return grad
         else:
             with tf.GradientTape(persistent=True) as tape:
-                objective = self.objective_fn(logK, R, Y, gamma_3, log_xi, log_I_g, compute_control, training)
+                objective = self.objective_fn(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, compute_control, training)
             grad = tape.gradient(objective, self.v_nn.trainable_variables)
             del tape
 
@@ -632,18 +628,18 @@ class model:
     @tf.function
     def train_step(self):
         if "pre_tech" in self.params["model_type"]:
-            logK, R, Y, gamma_3, log_xi, log_I_g = self.sample()
+            logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g = self.sample()
         else:
-            logK, R, Y, gamma_3, log_xi = self.sample()
+            logK, R, Y, gamma_3, A_g_prime, log_xi = self.sample()
             log_I_g = None 
 
         ## First, train value function
         
-        grad = self.grad(logK, R, Y, gamma_3, log_xi, log_I_g, compute_control= False, training=True)
+        grad = self.grad(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, compute_control= False, training=True)
         self.params["optimizers"][0].apply_gradients(zip(grad, self.v_nn.trainable_variables))
 
         ## Second, train controls
-        grad = self.grad(logK, R, Y, gamma_3, log_xi, log_I_g, compute_control= True, training=True)
+        grad = self.grad(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, compute_control= True, training=True)
 
         if self.params['n_dims'] == 4:
             self.params["optimizers"][1].apply_gradients(zip(grad, self.i_g_nn.trainable_variables + self.i_d_nn.trainable_variables + self.i_I_nn.trainable_variables ))
@@ -659,13 +655,13 @@ class model:
         min_loss = float("inf")
         
         if "post_damage" in self.params["model_type"] and "post_tech" in self.params["model_type"]:
-            n_inputs = 5
+            n_inputs = 6
     
         if "post_damage" in self.params["model_type"] and "pre_tech" in self.params["model_type"]:
             n_inputs = 6
         
         if "pre_damage" in self.params["model_type"] and "post_tech" in self.params["model_type"]:
-            n_inputs = 4
+            n_inputs = 5
 
         if "pre_damage" in self.params["model_type"] and "pre_tech" in self.params["model_type"]:
             n_inputs = 5
@@ -735,21 +731,21 @@ class model:
 
                 ## Sample test data
                 if "pre_tech" in self.params["model_type"]:
-                    logK, R, Y, gamma_3, log_xi, log_I_g = self.sample()
+                    logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g = self.sample()
                 else:
-                    logK, R, Y, gamma_3, log_xi = self.sample() 
+                    logK, R, Y, gamma_3, A_g_prime, log_xi = self.sample() 
                     log_I_g = None 
 
                 ## Compute test loss
-                test_losses = self.objective_fn(logK, R, Y, gamma_3, log_xi, log_I_g, training = False)
+                test_losses = self.objective_fn(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g, training = False)
 
                 ## Update normalization constants
 
 
                 if self.params["n_dims"] == 4:
-                    rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, log_xi, log_I_g)
+                    rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
                 else:
-                    rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, marginal_utility_of_consumption_norm, FOC_g, FOC_d                                = self.pde_rhs(logK, R, Y, gamma_3, log_xi, log_I_g)
+                    rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, marginal_utility_of_consumption_norm, FOC_g, FOC_d                                = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
 
                 
                 self.flow_pv_norm = (1.0 - self.params['norm_weight']) * self.flow_pv_norm + self.params['norm_weight'] * pv 
@@ -1025,8 +1021,9 @@ class model:
 
             X              = tf.cast(X ,dtype= "float32")
             gamma_3        = tf.ones( (X.shape[0],1) ) * self.params["gamma_3"]
+            A_g_prime      = tf.ones( (X.shape[0],1) ) * self.params["A_d"]
             
-            X              = tf.concat([X, gamma_3, log_xi], axis=1)
+            X              = tf.concat([X, gamma_3, A_g_prime, log_xi], axis=1)
             v = self.v_nn(X); i_g = self.i_g_nn(X); 
             i_d = self.i_d_nn(X)
 
@@ -1062,8 +1059,9 @@ class model:
                 X              = self.solution_fd['stateSpace'][idx]
                 X              = tf.cast(X ,dtype= "float32")
                 gamma_3        = tf.ones( (X.shape[0],1) ) * self.params["gamma_3_list"][gamma_3_idx]
+                A_g_prime      = tf.ones( (X.shape[0],1) ) * self.params["A_d"]
 
-                X              = tf.concat([X, gamma_3, log_xi], axis=1)
+                X              = tf.concat([X, gamma_3, A_g_prime, log_xi], axis=1)
                 v = self.v_nn(X); i_g = self.i_g_nn(X); 
                 i_d = self.i_d_nn(X)
 
@@ -1104,9 +1102,10 @@ class model:
                 X              = self.solution_fd['stateSpace'][idx]
                 X              = tf.cast(X ,dtype= "float32")
                 gamma_3        = tf.ones( (X.shape[0],1) ) * self.params["gamma_3"]
+                A_g_prime      = tf.ones( (X.shape[0],1) ) * self.params["A_d"]
 
                 log_xi         = tf.ones( (X.shape[0],1) ) * log_xi_list[log_xi_idx]
-                X              = tf.concat([X, gamma_3, log_xi], axis=1)
+                X              = tf.concat([X, gamma_3, A_g_prime, log_xi], axis=1)
                 
                 v   = self.v_nn(X); i_g = self.i_g_nn(X); 
                 i_d = self.i_d_nn(X)
@@ -1187,23 +1186,24 @@ class model:
         state         = tf.convert_to_tensor( [[ init_logK,  init_R, init_Y, log_xi,  init_I_g]] )
         state         = tf.reshape(state, (1,5))
 
-        state_pre     = tf.convert_to_tensor( [[ init_logK,  init_R, init_Y, log_xi]] )
-        state_pre     = tf.reshape(state_pre, (1,4)) 
+        # state_pre     = tf.convert_to_tensor( [[ init_logK,  init_R, init_Y, log_xi, A_g_prime]] )
+        # state_pre     = tf.reshape(state_pre, (1,5)) 
 
         state_list       = [state]
-        state_pre_list   = [state_pre]
+        # state_pre_list   = [state_pre]
 
         i_g_list      = [self.i_g_nn(state)]
         i_d_list      = [self.i_d_nn(state)]
         i_I_list      = [self.i_I_nn(state)]
 
-        v_post_tech_pre_damage        = self.v_post_tech_pre_damage_nn(state_pre)
+        # v_post_tech_pre_damage        = self.v_post_tech_pre_damage_nn(state_pre)
         v                             = self.v_nn(state)
 
         f_ms = []
         v_m_vals = []
 
-
+        g_js = []
+        v_j_vals = []
 
         for k in range(self.params["gamma_3_length"]):
 
@@ -1214,10 +1214,21 @@ class model:
             f_m       = tf.exp(-1.0/ np.exp(log_xi) * (v_m - v))
             f_ms.append(f_m)
 
-        g      = tf.exp(-1.0/  np.exp(log_xi) * (v_post_tech_pre_damage - v))
-
         f_ms_list         = [f_ms]
-        g_list            = [g]
+
+        for j in range(self.params["A_g_prime_length"]):
+            
+            state_post_tech_pre_damage    = tf.convert_to_tensor( [[ init_logK,  init_R, init_Y, log_xi, self.params["A_g_prime_list"][j]]] )
+            state_post_tech_pre_damage        = tf.reshape(state_post_tech_pre_damage, (1,5))
+            
+            v_j                           = self.v_post_tech_pre_damage_nn(state_post_tech_pre_damage)
+            v_j_vals.append( v_j )
+
+            g_j      = tf.exp(-1.0/  np.exp(log_xi) * (v_j - v))
+            g_js.append(g_j)
+
+
+        g_js_list            = [g_js]
 
 
         for t in range(T):
@@ -1228,14 +1239,13 @@ class model:
             i_d                         = self.i_d_nn(state_list[t])
             i_I                         = self.i_I_nn(state_list[t])
             v                           = self.v_nn(state_list[t])
-            v_post_tech_pre_damage      = self.v_post_tech_pre_damage_nn(state_pre_list[t]) 
 
             f_ms              = []
 
             for k in range(self.params["gamma_3_length"]):
 
                 state_pre_tech_post_damage    = tf.convert_to_tensor( [[ state_list[t][0,0], state_list[t][0,1], state_list[t][0,2],
-                    self.params["gamma_3_list"][k],  state_list[t][0,3], state_list[t][0,4] ]] )
+                    self.params["gamma_3_list"][k],  state_list[t][0,3], state_list[t][0,4]]] )
                 state_pre_tech_post_damage        = tf.reshape(state_pre_tech_post_damage, (1,6))
                 
                 v_m                           = self.v_pre_tech_post_damage_nn(state_pre_tech_post_damage)
@@ -1244,12 +1254,28 @@ class model:
 
             f_ms_list.append(f_ms)
 
+            g_js              = []
+
+            for j in range(self.params["A_g_prime_length"]):
+
+                state_post_tech_pre_damage    = tf.convert_to_tensor( [[ state_list[t][0,0], state_list[t][0,1], state_list[t][0,2],
+                    state_list[t][0,3], self.params["A_g_prime_list"][j]]] )
+                state_pre_tech_post_damage        = tf.reshape(state_pre_tech_post_damage, (1,5))
+                
+                v_j                           = self.v_pre_tech_post_damage_nn(state_pre_tech_post_damage)
+                g_j       = tf.exp(-1.0/  np.exp(log_xi) * (v_j - v))
+                g_js.append(g_j)
+
+            g_js_list.append(g_js)
+
+
+
             logK      = state_list[t][0,0]; R = state_list[t][0,1]; 
             Y         = state_list[t][0,2]; log_I_g = state_list[t][0,4]
             K         = tf.exp(logK)
 
-            g         = tf.exp(-1.0/  np.exp(log_xi) * (v_post_tech_pre_damage  - v))
-            g_list.append(g)
+            # g         = tf.exp(-1.0/  np.exp(log_xi) * (v_post_tech_pre_damage  - v))
+            # g_list.append(g)
 
 
             i_g_list.append(i_g)
@@ -1277,8 +1303,8 @@ class model:
             state          = tf.concat([new_logK, new_R, tf.reshape(new_Y, [1,1]), tf.reshape(log_xi, [1,1]), new_log_I_g ], axis=1)
             state_list.append(state)
 
-            state_pre          = tf.concat([new_logK, new_R, tf.reshape(new_Y, [1,1]),  tf.reshape(log_xi, [1,1])], axis=1)
-            state_pre_list.append(state_pre)
+            # state_pre          = tf.concat([new_logK, new_R, tf.reshape(new_Y, [1,1]),  tf.reshape(log_xi, [1,1])], axis=1)
+            # state_pre_list.append(state_pre)
 
         state_matrix = tf.concat(state_list, axis = 0)
 
@@ -1370,13 +1396,13 @@ class model:
         np.savetxt(export_folder +  "/h_simulation.txt", h)
 
 
-        plt.figure()
-        plt.plot([g.numpy()[0,0] for g in g_list])
-        plt.xlabel("month")
-        plt.title(r'$g$')
-        plt.savefig(export_folder +  "/g_simulation.png")
-        np.savetxt(export_folder + "/g_simulation.txt", np.array([g.numpy()[0,0] for g in g_list]))
-        ## Distorted probability
+        # plt.figure()
+        # plt.plot([g.numpy()[0,0] for g in g_list])
+        # plt.xlabel("month")
+        # plt.title(r'$g$')
+        # plt.savefig(export_folder +  "/g_simulation.png")
+        # np.savetxt(export_folder + "/g_simulation.txt", np.array([g.numpy()[0,0] for g in g_list]))
+        # ## Distorted probability
 
         I_g        =  np.exp(np.array( [state.numpy()[0,4] for state in state_list] ))
         g          = [g.numpy()[0,0] for g in g_list]
@@ -1408,7 +1434,18 @@ class model:
             plt.title("f_m " + str(i+1))
             plt.savefig(export_folder + "/f_m_" + str(i+1) + "_simulation.png")
             np.savetxt(export_folder + "/f_m_" + str(i+1) + "_simulation.txt", [f_ms[i].numpy()[0,0] for f_ms in f_ms_list])
-    def simulate_path_post_tech_post_jump(self, T, dt, gamma_3, log_xi, export_folder):
+            
+        for i in range(self.params["A_g_prime_length"]):
+
+            plt.figure()
+            plt.plot([g_js[i].numpy()[0,0] for g_js in g_js_list])
+            plt.xlabel("month")
+            plt.title("g_j " + str(i+1))
+            plt.savefig(export_folder + "/g_j_" + str(i+1) + "_simulation.png")
+            np.savetxt(export_folder + "/g_j_" + str(i+1) + "_simulation.txt", [g_js[i].numpy()[0,0] for g_js in g_js_list])
+            
+            
+    def simulate_path_post_tech_post_jump(self, T, dt, gamma_3, A_g_prime, log_xi, export_folder):
 
         ## Create folder
         pathlib.Path(export_folder).mkdir(parents=True, exist_ok=True) 
@@ -1418,8 +1455,8 @@ class model:
         init_R        = 0.5  
         init_Y        = 1.1
 
-        state         = tf.convert_to_tensor( [[ init_logK,  init_R, init_Y, gamma_3, log_xi]] )
-        state         = tf.reshape(state, (1,5))
+        state         = tf.convert_to_tensor( [[ init_logK,  init_R, init_Y, gamma_3, log_xi, A_g_prime]] )
+        state         = tf.reshape(state, (1,6))
 
         state_list       = [state]
 
@@ -1457,7 +1494,7 @@ class model:
             new_R          = R + v_r_term * dt  
             new_Y          = Y + self.params["beta_f"] * ( self.params["eta"] * self.params["A_d"] * (1-R) * tf.exp( logK )) * dt 
 
-            state          = tf.concat([new_logK, new_R, tf.reshape(new_Y, [1,1]), tf.reshape(gamma_3, [1,1]),  tf.reshape(log_xi, [1,1]) ], axis=1)
+            state          = tf.concat([new_logK, new_R, tf.reshape(new_Y, [1,1]), tf.reshape(gamma_3, [1,1]),  tf.reshape(log_xi, [1,1]),  tf.reshape(A_g_prime, [1,1]) ], axis=1)
             state_list.append(state)
 
         ################################################################
