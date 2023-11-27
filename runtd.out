@@ -2,3 +2,4 @@
 Program starts Mon Nov 27 10:47:24 CST 2023
 Tensorboard boolean = True
 Pre tech model detected. Building a neural network for i_I
+Tensorboard boolean = False

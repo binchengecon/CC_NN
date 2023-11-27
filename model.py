@@ -647,9 +647,9 @@ class model:
             logK, R, Y, gamma_3, A_g_prime, log_xi = self.sample()
             log_I_g = None 
 
-        # print("Testing")
-        # print(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
-        # print("Testing")
+        print("Testing")
+        print(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
+        print("Testing")
 
         ## First, train value function
         
