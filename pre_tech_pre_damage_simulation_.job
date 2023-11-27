@@ -17,7 +17,7 @@ module load python/anaconda-2021.05
 
 echo 
 
-echo Program starts Mon Nov 27 10:47:24 CST 2023
+echo Program starts Mon Nov 27 10:56:03 CST 2023
 start_time=$(date +%s)
 
 python pre_tech_post_damage.py /scratch/midway3/bincheng/pre_tech_pre_damage_models_11272023_tensorboard_version_1/pre_tech_post_damage -3.0 -1.5 32 10 0.1 0.2  None 1000 10e-5,10e-5,10e-5,10e-5 swish,tanh,tanh,softplus None,custom,custom,softplus 4 32 None 0.025 True

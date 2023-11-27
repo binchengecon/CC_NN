@@ -1,5 +1,10 @@
 
-Program starts Mon Nov 27 10:47:24 CST 2023
+Program starts Mon Nov 27 10:56:03 CST 2023
 Tensorboard boolean = True
 Pre tech model detected. Building a neural network for i_I
-Tensorboard boolean = False
+Testing
+Tensor("RandomShuffle_2:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_3:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_4:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_1:0", shape=(32, 1), dtype=float32) Tensor("mul_2:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_5:0", shape=(32, 1), dtype=float32)
+Testing
+Testing
+Tensor("RandomShuffle_2:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_3:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_4:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_1:0", shape=(32, 1), dtype=float32) Tensor("mul_2:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle:0", shape=(32, 1), dtype=float32) Tensor("RandomShuffle_5:0", shape=(32, 1), dtype=float32)
+Testing
