@@ -1644,8 +1644,8 @@ class model:
 
         ## Plot bar chart
         baseline = np.ones(5) / 5
-        distorted = np.array([ data_dict['f_m_0_normalized'][-1], data_dict['f_m_1_normalized'][-1],
-                            data_dict['f_m_2_normalized'][-1], data_dict['f_m_3_normalized'][-1], data_dict['f_m_4_normalized'][-1]])
+        distorted = np.array([ data_dict['f_m_0_simulation_norm'][-1], data_dict['f_m_1_simulation_norm'][-1],
+                            data_dict['f_m_2_simulation_norm'][-1], data_dict['f_m_3_simulation_norm'][-1], data_dict['f_m_4_simulation_norm'][-1]])
     #     x1       = np.array(list(range(5)))
         x1       = np.linspace(0,1/3,5)
         plt.bar(x1, baseline, width=(1/3)*(1/4), label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
@@ -1663,8 +1663,8 @@ class model:
 
         ## Plot bar chart
         baseline = np.ones(3) / 3
-        distorted = np.array([ data_dict['g_j_0_normalized'][-1], data_dict['g_j_1_normalized'][-1],
-                            data_dict['g_j_2_normalized'][-1]])
+        distorted = np.array([ data_dict['g_j_0_simulation_norm'][-1], data_dict['g_j_1_simulation_norm'][-1],
+                            data_dict['g_j_2_simulation_norm'][-1]])
         x1       = np.linspace(0.10,0.20,3)
         plt.bar(x1,baseline,  label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
         plt.bar(x1, distorted,  label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
