@@ -1690,7 +1690,7 @@ class model:
     def simulate_path_post_tech_post_jump(self, Year, dt, gamma_3, A_g_prime, log_xi, export_folder):
 
         ## Create folder
-        pathlib.Path(export_folder+self.params["model_type"]).mkdir(parents=True, exist_ok=True) 
+        pathlib.Path(export_folder+"/"+self.params["model_type"]).mkdir(parents=True, exist_ok=True) 
         
         ## Initial state 
         init_logK     = tf.math.log(739.0)
