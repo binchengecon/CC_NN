@@ -1386,6 +1386,15 @@ class model:
         data_dict['i_d_simulation'] = [i_d.numpy()[0,0] for i_d in i_d_list]
         data_dict['i_I_simulation'] = [np.exp(-i_I.numpy()[0,0]) for i_I in i_I_list]
 
+        data_dict['Year'] = np.array(data_dict['Year'])
+        data_dict['log_K_simulation'] = np.array(data_dict['log_K_simulation'])
+        data_dict['R_simulation'] = np.array(data_dict['R_simulation'])
+        data_dict['log_K_simulation'] = np.array(data_dict['log_K_simulation'])
+        data_dict['T_simulation'] = np.array(data_dict['T_simulation'])
+        data_dict['log_I_g_simulation'] = np.array(data_dict['log_I_g_simulation'])
+        data_dict['i_g_simulation'] = np.array(data_dict['i_g_simulation'])
+        data_dict['i_d_simulation'] = np.array(data_dict['i_d_simulation'])
+        data_dict['i_I_simulation'] = np.array(data_dict['i_I_simulation'])
 
         data_dict["I_g"] =  np.exp(data_dict['log_K_simulation']) * data_dict['R_simulation'] * data_dict['i_g_simulation']
         data_dict["I_d"] =  np.exp(data_dict['log_K_simulation']) * (1.0 - data_dict['R_simulation'])  * data_dict['i_d_simulation']
@@ -1405,6 +1414,7 @@ class model:
         for i in range(self.params["gamma_3_length"]):
 
             data_dict['f_m_' + str(i) + '_simulation'] = [f_ms[i].numpy()[0,0] for f_ms in f_ms_list]
+            data_dict['f_m_' + str(i) + '_simulation'] =  np.array(data_dict['f_m_' + str(i) + '_simulation'])
             data_dict['f_m_avg'] += data_dict['f_m_' + str(i) + '_simulation']
 
         data_dict['f_m_sum'] = data_dict['f_m_avg']
@@ -1426,6 +1436,7 @@ class model:
         for i in range(self.params["A_g_prime_length"]):
 
             data_dict['g_j_' + str(i) + '_simulation'] = [g_js[i].numpy()[0,0] for g_js in g_js_list]
+            data_dict['g_j_' + str(i) + '_simulation'] =  np.array(data_dict['g_j_' + str(i) + '_simulation'])
             data_dict['g_j_avg'] += data_dict['g_j_' + str(i) + '_simulation']
 
         data_dict['g_j_sum'] = data_dict['g_j_avg']
