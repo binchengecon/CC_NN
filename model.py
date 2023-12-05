@@ -593,7 +593,9 @@ class model:
 
 
                 if self.params['n_dims'] == 4:
-                    loss_v_diff = -v_diff_j_vals * tf.reshape( tf.cast( v_diff_j_vals < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
+                    loss_v_diff = 0
+                    for j in range(self.params["A_g_prime_length"]):
+                        loss_v_diff += -v_diff_j_vals[j] * tf.reshape( tf.cast( v_diff_j_vals[j] < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
     
                     loss_dv_dI_g = - dv_dI_g  * tf.reshape( tf.cast( dv_dI_g < 0.0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
 
@@ -613,7 +615,10 @@ class model:
             if self.params["n_dims"] == 4:
 
                 ## loss associated with v_diff
-                loss_v_diff = -v_diff_j_vals  * tf.reshape( tf.cast( v_diff_j_vals < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
+                loss_v_diff = 0
+
+                for j in range(self.params["A_g_prime_length"]):
+                    loss_v_diff += -v_diff_j_vals[j] * tf.reshape( tf.cast( v_diff_j_vals[j] < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
                 loss_dv_dI_g = - dv_dI_g   * tf.reshape( tf.cast( dv_dI_g < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
 
                 return tf.sqrt(tf.reduce_mean(tf.square( (rhs - pv)  / self.flow_pv_norm  ))), -tf.reduce_mean(rhs  / self.flow_pv_norm ), tf.sqrt(tf.reduce_mean(tf.square(loss_dv_dY / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_c / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_g / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_d / self.marginal_utility_of_consumption_norm))),  tf.sqrt(tf.reduce_mean(tf.square(FOC_g / self.marginal_utility_of_consumption_norm))), \

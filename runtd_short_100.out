@@ -1,3 +1,11 @@
 Export folder: /scratch/midway3/bincheng/pre_tech_pre_damage_models_12042023_tensorboard_version_2
 modification
-Program starts Tue Dec  5 02:17:14 CST 2023
+Program starts Tue Dec  5 02:23:35 CST 2023
+Tensorboard boolean = True
+pre_tech_post_damage
+pre_tech_post_damage
+Pre tech model detected. Building a neural network for i_I
+Training with pre_tech_post_damage
+Tensorboard boolean = False
+pre_damage_post_tech
+Training with pre_damage_post_tech
