@@ -6,3 +6,4 @@ To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other ope
 2023-12-05 01:36:58.714052: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
 2023-12-05 01:37:00.040587: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
 Skipping registering GPU devices...
+slurmstepd: error: *** JOB 11118617 ON midway3-0282 CANCELLED AT 2023-12-05T02:17:01 ***

@@ -346,7 +346,8 @@ class model:
             g_js = []
             g_j_logs = []
             v_j_vals = []
-            
+            v_diff_j_vals = []
+
             for k in range(self.params["gamma_3_length"]):
                     
                 X_pre_tech_post_damage = tf.concat([logK, R, Y, 
@@ -466,7 +467,7 @@ class model:
                     for j in range(self.params["A_g_prime_length"]):
 
                         v_diff = v_j_vals[j] - v
-
+                        v_diff_j_vals.append(v_diff)
                         rhs = rhs + tf.exp(log_I_g) / self.params["varrho"] * g_js[j] * (v_j_vals[j] - v) +  \
                         xi * ( tf.exp(log_I_g) / self.params['varrho'] * (1.0 - g_js[j] + g_js[j] * g_j_logs[j]) )
 
@@ -485,7 +486,7 @@ class model:
                 g_js     = []
                 g_j_logs = []
                 v_j_vals = []
-
+                v_diff_j_vals = []
 
 
                 for j in range(self.params["A_g_prime_length"]):
@@ -497,6 +498,7 @@ class model:
                     v_j_vals.append( v_j )
 
                     v_diff = v_j - v
+                    v_diff_j_vals.append(v_diff)
 
                     g_j       = tf.exp(-1.0/ xi * (v_j - v))
                     g_j_log   = -1.0/ xi * (v_j - v)
@@ -519,7 +521,7 @@ class model:
             FOC_I   = - self.params["delta"] / inside_log * tf.exp(-i_I_capped) + self.params["psi_0"] * self.params["psi_1"] * \
             tf.exp(-i_I_capped  * (self.params["psi_1"])) * tf.exp( self.params["psi_1"] * (logK -  log_I_g) )  * dv_dI_g 
 
-            return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, i_I, v_diff, dv_dI_g, marginal_util_c_over_k, FOC_g, FOC_d, FOC_I
+            return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, i_I, v_diff_j_vals, dv_dI_g, marginal_util_c_over_k, FOC_g, FOC_d, FOC_I
         else:
             return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, marginal_util_c_over_k, FOC_g, FOC_d
 
@@ -531,7 +533,7 @@ class model:
         ## objectives.
 
         if self.params["n_dims"] == 4:
-            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
+            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff_j_vals, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
         else:
             rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, marginal_utility_of_consumption_norm, FOC_g, FOC_d                       = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
 
@@ -591,7 +593,7 @@ class model:
 
 
                 if self.params['n_dims'] == 4:
-                    loss_v_diff = -v_diff * tf.reshape( tf.cast( v_diff < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
+                    loss_v_diff = -v_diff_j_vals * tf.reshape( tf.cast( v_diff_j_vals < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
     
                     loss_dv_dI_g = - dv_dI_g  * tf.reshape( tf.cast( dv_dI_g < 0.0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
 
@@ -611,7 +613,7 @@ class model:
             if self.params["n_dims"] == 4:
 
                 ## loss associated with v_diff
-                loss_v_diff = -v_diff  * tf.reshape( tf.cast( v_diff < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
+                loss_v_diff = -v_diff_j_vals  * tf.reshape( tf.cast( v_diff_j_vals < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
                 loss_dv_dI_g = - dv_dI_g   * tf.reshape( tf.cast( dv_dI_g < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
 
                 return tf.sqrt(tf.reduce_mean(tf.square( (rhs - pv)  / self.flow_pv_norm  ))), -tf.reduce_mean(rhs  / self.flow_pv_norm ), tf.sqrt(tf.reduce_mean(tf.square(loss_dv_dY / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_c / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_g / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_d / self.marginal_utility_of_consumption_norm))),  tf.sqrt(tf.reduce_mean(tf.square(FOC_g / self.marginal_utility_of_consumption_norm))), \
@@ -1649,8 +1651,8 @@ class model:
                             data_dict['f_m_2_simulation_norm'][-1], data_dict['f_m_3_simulation_norm'][-1], data_dict['f_m_4_simulation_norm'][-1]])
         print("Climate Models: {}"  .format(distorted))
         x1       = np.linspace(0,1/3,5)
-        plt.bar(x1, baseline, width=(1/3)*(1/4), label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
-        plt.bar(x1, distorted, width=(1/3)*(1/4), label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
+        plt.hist(x1, weights=baseline, label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.hist(x1, weights=distorted, label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
         plt.title("Distorted Probability of Damage Models")
         plt.xlabel(r"$\gamma_3$")
         plt.legend()
@@ -1664,8 +1666,8 @@ class model:
                             data_dict['g_j_2_simulation_norm'][-1]])
         print("Tech Models: {}"  .format(distorted))
         x1       = np.linspace(0.10, 0.20, 3)
-        plt.bar(x1,baseline,  label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
-        plt.bar(x1, distorted,  label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
+        plt.hist(x1, weights=baseline, label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.hist(x1, weights=distorted,  label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
         plt.title("Distorted Probability of Technology Models")
         plt.xlabel(r"$A'_g$")
         plt.legend()
@@ -1673,11 +1675,12 @@ class model:
         plt.close()
 
 
+        pi_c_o = np.ones(len(theta_ell)) / len(theta_ell)
         beta_f =  1.86 / 1000
         varsigma = 1.2 * 1.86 / 1000
         print("Distortion: {}"  .format(varsigma * data_dict['h_simulation'][-1]))
-        plt.hist(1000*theta_ell, bins = np.linspace(0.8,3.,16), label = "Baseline", color = 'C3', alpha=0.5, ec="darkgrey")
-        plt.hist(1000*(theta_ell + varsigma * data_dict['h_simulation'][-1]), label = "Distorted", bins = np.linspace(0.8,3.,16), color = 'C0', alpha=0.5, ec="darkgrey")
+        plt.hist(1000*theta_ell, weights=pi_c_o, bins = np.linspace(0.8,3.,16), label = "Baseline", color = 'C3', alpha=0.5, density=True, ec="darkgrey")
+        plt.hist(1000*(theta_ell + varsigma * data_dict['h_simulation'][-1]), weights=pi_c_o, label = "Distorted", bins = np.linspace(0.8,3.,16), color = 'C0', alpha=0.5,density=True,  ec="darkgrey")
         plt.title("Distorted Probability of Climate Models")
         plt.xlabel("Climate Sensitivity")
         plt.legend()
