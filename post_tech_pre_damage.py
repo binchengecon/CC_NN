@@ -120,4 +120,4 @@ params["v_post_tech_post_damage_nn_path"] = pre_tech_post_damage_export_folder +
 test_model = model.model(params)
 test_model.export_parameters()
 test_model.train()
-test_model.analyze()
+# test_model.analyze()

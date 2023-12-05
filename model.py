@@ -15,6 +15,7 @@ import json
 import pathlib
 import matplotlib.pyplot as plt
 import os 
+import pandas as pd
 
 
 tf.random.set_seed(11117)
@@ -142,6 +143,7 @@ class model:
         self.i_d_nn  = FeedForwardSubNet(self.params['i_d_nn_config'])
             
         if "pre_" in self.params["model_type"] and "post_" in self.params["model_type"]:
+            print(self.params["model_type"])
 
             ## Load post tech post damage model
 
@@ -154,7 +156,8 @@ class model:
 
 
         if "pre_tech" in self.params["model_type"] and "pre_damage" in self.params["model_type"]:
-
+            
+            print(self.params["model_type"])
             self.v_pre_tech_post_damage_nn = FeedForwardSubNet(self.params['v_nn_config'])
 
             self.v_pre_tech_post_damage_nn.build( (self.params["batch_size"], 6) ) 
@@ -171,6 +174,8 @@ class model:
             self.v_post_tech_pre_damage_nn.load_weights( self.params["v_post_tech_pre_damage_nn_path"]  + '/v_nn_checkpoint_pre_damage_post_tech')
 
         if "pre_tech" in self.params["model_type"]:
+            print(self.params["model_type"])
+
             print("Pre tech model detected. Building a neural network for i_I")
             self.i_I_nn  = FeedForwardSubNet(self.params['i_I_nn_config'])
 
@@ -647,9 +652,9 @@ class model:
             logK, R, Y, gamma_3, A_g_prime, log_xi = self.sample()
             log_I_g = None 
 
-        print("Testing")
-        print(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
-        print("Testing")
+        # print("Testing")
+        # print(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
+        # print("Testing")
 
         ## First, train value function
         
@@ -742,11 +747,11 @@ class model:
                 if self.params["n_dims"] == 4:
                     self.i_I_nn.load_weights( self.params["pretrained_path"]  + '/i_I_nn_checkpoint_pre_tech_pre_damage')
 
+        print("Training with " + self.params["model_type"])
 
         # begin sgd iteration
         for step in range(self.params["num_iterations"]):
             if step % self.params["logging_frequency"] == 0:
-
                 ## Sample test data
                 if "pre_tech" in self.params["model_type"]:
                     logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g = self.sample()
@@ -917,18 +922,21 @@ class model:
         plt.xscale('log')
         plt.yscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_v_history.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: controls")
         plt.plot(loss_negative_mean_rhs_history)
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_controls_v.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: dvdY")
         plt.plot(loss_dv_dY_history)
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_controls_dv_dY.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: c")
@@ -936,6 +944,7 @@ class model:
         plt.yscale('log')
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_controls_c.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: inside_log_i_g")
@@ -943,6 +952,7 @@ class model:
         plt.yscale('log')
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_controls_inside_log_i_g.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: inside_log_i_d")
@@ -950,6 +960,7 @@ class model:
         plt.yscale('log')
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_controls_inside_log_i_d.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: FOC_g")
@@ -957,6 +968,7 @@ class model:
         plt.yscale('log')
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_FOC_g_history.png")
+        plt.close()
 
         plt.figure()
         plt.title("Test loss: FOC_d")
@@ -964,12 +976,14 @@ class model:
         plt.yscale('log')
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/loss_FOC_d_history.png")
+        plt.close()
 
         plt.figure()
         plt.title("pv_norm")
         plt.plot(pv_norm_history)
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/pv_norm_history.png")
+        plt.close()
 
         plt.figure()
         plt.title("marginal_util_consumption_norm")
@@ -977,6 +991,7 @@ class model:
         plt.yscale('log')
         plt.xscale('log')
         plt.savefig( self.params["export_folder"] + "/marginal_util_consumption_norm_history.png")
+        plt.close()
 
         if self.params['n_dims'] == 4:
             plt.figure()
@@ -985,6 +1000,7 @@ class model:
             plt.yscale('log')
             plt.xscale('log')
             plt.savefig( self.params["export_folder"] + "/loss_FOC_I_history.png")
+            plt.close()
 
             plt.figure()
             plt.title("Test loss: i_I")
@@ -992,6 +1008,7 @@ class model:
             plt.yscale('log')
             plt.xscale('log')
             plt.savefig( self.params["export_folder"] + "/loss_i_I_history.png")
+            plt.close()
 
             plt.figure()
             plt.title("Test loss: v_diff")
@@ -999,12 +1016,15 @@ class model:
             plt.yscale('log')
             plt.xscale('log')
             plt.savefig( self.params["export_folder"] + "/loss_v_diff_history.png")
+            plt.close()
 
             plt.figure()
             plt.title("Test loss: dvdI_g")
             plt.plot(loss_dv_dI_g_history)
             plt.xscale('log')
             plt.savefig( self.params["export_folder"] + "/loss_dv_dI_g_history.png")
+            plt.close()
+
         return np.array(training_history)
 
     def export_parameters(self):
@@ -1069,6 +1089,7 @@ class model:
             ax[2].set_title(r'$i_d$')
 
             plt.savefig(self.params["export_folder"] + "/compare_results_fd.png")
+            plt.close()
 
             ## Vary gamma_3
             for gamma_3_idx in range(self.params["gamma_3_length"]):
@@ -1107,6 +1128,7 @@ class model:
                 ax[2].set_title(r'$i_d$')
 
                 plt.savefig(self.params["export_folder"] + "/compare_results_" + str(gamma_3_idx) + ".png")
+                plt.close()
 
             ## Vary xi
             log_xi_list                                             = [float(np.log(xi)) for xi in np.linspace(np.exp(self.params['log_xi_min']) + 0.02, 
@@ -1146,7 +1168,8 @@ class model:
 
                 
             plt.savefig(self.params["export_folder"] + "/compare_results_xi.png")
-   
+            plt.close()
+
         if "pre_damage" in self.params["model_type"] and "pre_tech" in self.params["model_type"]:
 
             logK      = (self.params["logK_max"] + self.params["logK_min"]) / 2 * np.ones(n_points).reshape(n_points, 1)
@@ -1189,8 +1212,9 @@ class model:
             ax[3].set_title(r'$i_I$')
 
             plt.savefig(self.params["export_folder"] + "/compare_results.png")
+            plt.close()
 
-    def simulate_path(self, T, dt, log_xi, export_folder):
+    def simulate_path(self, Year, dt, log_xi, export_folder):
 
         ## Create folder
         pathlib.Path(export_folder).mkdir(parents=True, exist_ok=True) 
@@ -1248,8 +1272,9 @@ class model:
 
         g_js_list            = [g_js]
 
+        time_vec = np.linspace(0,Year,int(Year/dt))
 
-        for t in range(T):
+        for t in range(int(Year/dt)-1):
 
 
             ## Find investments
@@ -1332,6 +1357,95 @@ class model:
         derivative = tape.gradient(output_array, state_matrix) 
         dv_dY      = derivative[:,2] 
 
+        Y      =  np.array([state.numpy()[0,2] for state in state_list])
+        R      =  np.array([state.numpy()[0,1] for state in state_list])
+        K      =  np.exp(np.array([state.numpy()[0,0] for state in state_list]))
+
+        h      = -1.0 / tf.exp(log_xi) * ((dv_dY.numpy() - \
+        (self.params["gamma_1"] + self.params["gamma_2"] * Y)) * self.params["varsigma"] * \
+                self.params["eta"] * self.params["A_d"] * (1 - R) * K)
+        
+        varrho = 448
+        # gamma_3_length = 5
+        A_d = 0.12
+        A_g = 0.10
+        beta = 1.86 / 1000
+        eta = 0.17
+        r_1         = 1.5
+        r_2         = 2.5
+        y_lower_bar = 1.5
+
+        data_dict = {}
+        data_dict['Year'] = time_vec
+        data_dict['log_K_simulation'] = [state.numpy()[0,0] for state in state_list]
+        data_dict['R_simulation'] = [state.numpy()[0,1] for state in state_list]
+        data_dict['T_simulation'] = [state.numpy()[0,2] for state in state_list]
+        data_dict['log_I_g_simulation'] = [state.numpy()[0,4] for state in state_list]
+
+        data_dict['i_g_simulation'] = [i_g.numpy()[0,0] for i_g in i_g_list]
+        data_dict['i_d_simulation'] = [i_d.numpy()[0,0] for i_d in i_d_list]
+        data_dict['i_I_simulation'] = [np.exp(-i_I.numpy()[0,0]) for i_I in i_I_list]
+
+
+        data_dict["I_g"] =  np.exp(data_dict['log_K_simulation']) * data_dict['R_simulation'] * data_dict['i_g_simulation']
+        data_dict["I_d"] =  np.exp(data_dict['log_K_simulation']) * (1.0 - data_dict['R_simulation'])  * data_dict['i_d_simulation']
+        data_dict["I_I/Y"] =  np.exp(data_dict['log_K_simulation']) * data_dict['i_I_simulation'] /  \
+        (np.exp(data_dict['log_K_simulation']) * data_dict['R_simulation'] * A_d + \
+        np.exp(data_dict['log_K_simulation']) * (1.0 - data_dict['R_simulation']) * A_g)
+        data_dict["E"] = eta * np.exp(data_dict['log_K_simulation']) * (1.0 - data_dict['R_simulation'] ) * A_d
+        
+        data_dict['K_g'] = np.exp(data_dict['log_K_simulation']) * data_dict['R_simulation']
+        data_dict['K_d'] = np.exp(data_dict['log_K_simulation']) * (1.0 - data_dict['R_simulation'])
+
+
+        data_dict['damage_jump_intensity'] =  r_1 * ( np.exp( r_2 / 2 * np.power( data_dict['T_simulation'] - y_lower_bar,2) ) - 1  ) * (data_dict['T_simulation']  > y_lower_bar )
+
+        data_dict['f_m_avg'] = 0
+
+        for i in range(self.params["gamma_3_length"]):
+
+            data_dict['f_m_' + str(i) + '_simulation'] = [f_ms[i].numpy()[0,0] for f_ms in f_ms_list]
+            data_dict['f_m_avg'] += data_dict['f_m_' + str(i) + '_simulation']
+
+        data_dict['f_m_sum'] = data_dict['f_m_avg']
+
+        for i in range(self.params["A_g_prime_length"]):
+
+            data_dict['f_m_' + str(i) + '_simulation_norm'] = data_dict['f_m_' + str(i) + '_simulation']/  data_dict['f_m_sum']
+
+
+        data_dict['f_m_avg'] = data_dict['f_m_avg'] / self.params["gamma_3_length"]
+
+        data_dict['distorted_dmg_jump_intensity'] = data_dict['f_m_avg']*data_dict['damage_jump_intensity']
+        data_dict['distorted_dmg_jump_prob'] = 1-np.exp(-np.cumsum(data_dict['distorted_dmg_jump_intensity'] * (dt)))
+
+        I_g        =  np.exp(data_dict['log_I_g_simulation'])
+
+        data_dict['g_j_avg'] = 0
+
+        for i in range(self.params["A_g_prime_length"]):
+
+            data_dict['g_j_' + str(i) + '_simulation'] = [g_js[i].numpy()[0,0] for g_js in g_js_list]
+            data_dict['g_j_avg'] += data_dict['g_j_' + str(i) + '_simulation']
+
+        data_dict['g_j_sum'] = data_dict['g_j_avg']
+
+        for i in range(self.params["A_g_prime_length"]):
+
+            data_dict['g_j_' + str(i) + '_simulation_norm'] = data_dict['g_j_' + str(i) + '_simulation']/  data_dict['g_j_sum']
+
+        data_dict['g_j_avg'] = data_dict['g_j_avg'] / self.params["A_g_prime_length"]
+
+        data_dict['distorted_tech_jump_intensity'] = data_dict['g_j_avg']* I_g / varrho
+        data_dict['distorted_tech_jump_prob'] = 1-np.exp(-np.cumsum(data_dict['distorted_tech_jump_intensity'] * (dt)))
+
+        data_dict['h_simulation'] = h
+
+        with open(export_folder +self.params["model_type"] + '/data_dict.txt', 'a') as the_file:
+            for key in data_dict.keys():
+                if "nn_config" not in key:
+                    the_file.write( str(key) + ": " + str(data_dict[key]) + '\n')
+
 
         ################################################################
         ################################################################
@@ -1343,132 +1457,240 @@ class model:
 
 
         plt.figure()
-        plt.plot([state.numpy()[0,0] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,0] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$\log K$')
-        plt.savefig(export_folder + "/logK_simulation.png")
-        np.savetxt(export_folder + "/log_K_simulation.txt", np.array([state.numpy()[0,0] for state in state_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/logK_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/log_K_simulation.txt", np.array([state.numpy()[0,0] for state in state_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([state.numpy()[0,1] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,1] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$R$')
-        plt.savefig(export_folder +  "/R_simulation.png")
-        np.savetxt(export_folder + "/R_simulation.txt", np.array([state.numpy()[0,1] for state in state_list]))
+        plt.savefig(export_folder +self.params["model_type"]+  "/R_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/R_simulation.txt", np.array([state.numpy()[0,1] for state in state_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([state.numpy()[0,4] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,4] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$\log I_g$')
-        plt.savefig(export_folder + "/log_I_g_simulation.png")
-        np.savetxt(export_folder +  "/log_I_g_simulation.txt", np.array([state.numpy()[0,4] for state in state_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/log_I_g_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+  "/log_I_g_simulation.txt", np.array([state.numpy()[0,4] for state in state_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([state.numpy()[0,2] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,2] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$T$')
-        plt.savefig(export_folder + "/T_simulation.png")
-        np.savetxt(export_folder + "/T_simulation.txt", np.array([state.numpy()[0,2] for state in state_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/T_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/T_simulation.txt", np.array([state.numpy()[0,2] for state in state_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([i_g.numpy()[0,0] for i_g in i_g_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[i_g.numpy()[0,0] for i_g in i_g_list])
+        plt.xlabel("Years")
         plt.title(r'$i_g$')
-        plt.savefig(export_folder + "/i_g_simulation.png")
-        np.savetxt(export_folder + "/i_g_simulation.txt", np.array([i_g.numpy()[0,0] for i_g in i_g_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/i_g_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/i_g_simulation.txt", np.array([i_g.numpy()[0,0] for i_g in i_g_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([i_d.numpy()[0,0] for i_d in i_d_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[i_d.numpy()[0,0] for i_d in i_d_list])
+        plt.xlabel("Years")
         plt.title(r'$i_d$')
-        plt.savefig(export_folder + "/i_d_simulation.png")
-        np.savetxt(export_folder + "/i_d_simulation.txt", np.array([i_d.numpy()[0,0] for i_d in i_d_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/i_d_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/i_d_simulation.txt", np.array([i_d.numpy()[0,0] for i_d in i_d_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([np.exp(-i_I.numpy()[0,0]) for i_I in i_I_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[np.exp(-i_I.numpy()[0,0]) for i_I in i_I_list])
+        plt.xlabel("Years")
         plt.title(r'$i_I$')
-        plt.savefig(export_folder + "/i_I_simulation.png")
-        np.savetxt(export_folder + "/i_I_simulation.txt", np.array([ np.exp(-i_I.numpy()[0,0]) for i_I in i_I_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/i_I_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/i_I_simulation.txt", np.array([ np.exp(-i_I.numpy()[0,0]) for i_I in i_I_list]))
+        plt.close()
 
 
-        Y      =  np.array([state.numpy()[0,2] for state in state_list])
-        R      =  np.array([state.numpy()[0,1] for state in state_list])
-        K      =  np.exp(np.array([state.numpy()[0,0] for state in state_list]))
 
-        h      = -1.0 / tf.exp(log_xi) * ((dv_dY.numpy() - \
-        (self.params["gamma_1"] + self.params["gamma_2"] * Y)) * self.params["varsigma"] * \
-                self.params["eta"] * self.params["A_d"] * (1 - R) * K)
 
         plt.figure()
-        plt.plot(h)
-        plt.xlabel("month")
+        plt.plot(time_vec,h)
+        plt.xlabel("Years")
         plt.title(r'$h$')
-        plt.savefig(export_folder + "/h_simulation.png")
-        np.savetxt(export_folder +  "/h_simulation.txt", h)
-
-
-        # plt.figure()
-        # plt.plot([g.numpy()[0,0] for g in g_list])
-        # plt.xlabel("month")
-        # plt.title(r'$g$')
-        # plt.savefig(export_folder +  "/g_simulation.png")
-        # np.savetxt(export_folder + "/g_simulation.txt", np.array([g.numpy()[0,0] for g in g_list]))
-        # ## Distorted probability
-
-
-
-        # I_g        =  np.exp(np.array( [state.numpy()[0,4] for state in state_list] ))
-        # g          = [g.numpy()[0,0] for g in g_js_list]
-        # integrand  =  I_g * g * dt 
-        # integral   = -np.cumsum(integrand)
-        # distorted_probability = 1.0 - np.exp(integral)
-
-        # plt.figure()
-        # plt.plot(distorted_probability)
-        # plt.xlabel("month")
-        # plt.title(r'Distorted probability - tech jump')
-        # plt.savefig(export_folder + "/distort_prob_tech_simulation.png")
-
+        plt.savefig(export_folder +self.params["model_type"]+ "/h_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+  "/h_simulation.txt", h)
+        plt.close()
 
 
         plt.figure()
-        plt.plot(dv_dY.numpy())
-        plt.xlabel("month")
+        plt.plot(time_vec,dv_dY.numpy())
+        plt.xlabel("Years")
         plt.title(r'$dv dY$')
-        plt.savefig(export_folder + "/dv_dY_simulation.png")
-        np.savetxt(export_folder + "/dv_dY_simulation.txt", dv_dY.numpy())
+        plt.savefig(export_folder +self.params["model_type"]+ "/dv_dY_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/dv_dY_simulation.txt", dv_dY.numpy())
+        plt.close()
 
 
         for i in range(self.params["gamma_3_length"]):
 
             plt.figure()
-            plt.plot([f_ms[i].numpy()[0,0] for f_ms in f_ms_list])
-            plt.xlabel("month")
+            plt.plot(time_vec,[f_ms[i].numpy()[0,0] for f_ms in f_ms_list])
+            plt.xlabel("Years")
             plt.title("f_m " + str(i+1))
-            plt.savefig(export_folder + "/f_m_" + str(i+1) + "_simulation.png")
-            np.savetxt(export_folder + "/f_m_" + str(i+1) + "_simulation.txt", [f_ms[i].numpy()[0,0] for f_ms in f_ms_list])
-            
+            plt.savefig(export_folder +self.params["model_type"]+ "/f_m_" + str(i+1) + "_simulation.png")
+            np.savetxt(export_folder +self.params["model_type"]+ "/f_m_" + str(i+1) + "_simulation.txt", [f_ms[i].numpy()[0,0] for f_ms in f_ms_list])
+            plt.close()
+
         for i in range(self.params["A_g_prime_length"]):
 
             plt.figure()
-            plt.plot([g_js[i].numpy()[0,0] for g_js in g_js_list])
-            plt.xlabel("month")
+            plt.plot(time_vec,[g_js[i].numpy()[0,0] for g_js in g_js_list])
+            plt.xlabel("Years")
             plt.title("g_j " + str(i+1))
-            plt.savefig(export_folder + "/g_j_" + str(i+1) + "_simulation.png")
-            np.savetxt(export_folder + "/g_j_" + str(i+1) + "_simulation.txt", [g_js[i].numpy()[0,0] for g_js in g_js_list])
-            
-            
-    def simulate_path_post_tech_post_jump(self, T, dt, gamma_3, A_g_prime, log_xi, export_folder):
+            plt.savefig(export_folder +self.params["model_type"]+ "/g_j_" + str(i+1) + "_simulation.png")
+            np.savetxt(export_folder +self.params["model_type"]+ "/g_j_" + str(i+1) + "_simulation.txt", [g_js[i].numpy()[0,0] for g_js in g_js_list])
+            plt.close()
+
+
+        url = 'https://raw.githubusercontent.com/SuriChen1028/TwoCapital/main/data/model144.csv'
+
+        theta_ell = (pd.read_csv(url, header=None).to_numpy()[:,0]/1000).astype(np.float32)
+
+        ################################################################
+        ################################################################
+        ################################################################
+        ## Make plots Part 2
+        ################################################################
+        ################################################################
+        ################################################################
+
+
+        plt.figure()
+        plt.plot(time_vec,data_dict["E"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title("Emissions")
+        # plt.ylim(7.5,11.5)
+        plt.legend(loc='upper left')
+        plt.savefig(export_folder +self.params["model_type"]+ "/Ems_Comp_IMSI_2023.png")
+        plt.close()
+
+
+        plt.figure()
+        plt.plot(time_vec,data_dict["distorted_probability_tech"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title("Distorted Probability of a Technology Jump")
+        plt.ylim(0,1)
+        plt.legend(loc='upper left')
+        plt.savefig(export_folder +self.params["model_type"]+ '/TechJumpProb_Comp_IMSI_2023.png')
+        plt.close()
+
+
+        plt.figure()
+        # plt.plot(data_dict_1["I_g"], label = r"$\xi = 0.15$")
+        plt.plot(time_vec,data_dict["I_g"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title(r"Green Investment ($I_g$)")
+        plt.legend(loc='upper left')
+        plt.savefig(export_folder +self.params["model_type"]+ '/Ig_Comp_IMSI_2023.png')
+        plt.close()
+
+        plt.figure()
+        plt.plot(time_vec,data_dict["I_d"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title(r"Dirty Investment ($I_d$)")
+        plt.legend(loc='lower left')
+        plt.savefig(export_folder +self.params["model_type"]+ '/Id_Comp_IMSI_2023.png')
+        plt.close()
+
+
+
+        plt.figure()
+        plt.plot(time_vec,data_dict["I_I/Y"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title(r"R&D Investment as % of Output ($I_{\kappa}/Y$)")
+        plt.legend(loc='upper right')
+        plt.savefig(export_folder +self.params["model_type"]+ '/RD_Comp_IMSI_2023.png')
+        plt.close()
+
+
+        plt.figure()
+        plt.plot(time_vec,data_dict["distorted_dmg_jump_prob"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title("Distorted Probability of a Damage Jump")
+        plt.ylim(0,1)
+        plt.legend(loc='lower right')
+        plt.savefig(export_folder +self.params["model_type"]+ '/DmgJumpProb_Comp_IMSI_2023.png')
+        plt.close()
+
+
+
+        plt.figure()
+        plt.plot(time_vec,data_dict["distorted_tech_jump_prob"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
+        plt.xlabel('Years')
+        plt.title("Distorted Probability of a Tech Jump")
+        plt.ylim(0,1)
+        plt.legend(loc='lower right')
+        plt.savefig(export_folder +self.params["model_type"]+ '/TechJumpProb_Comp_IMSI_2023.png')
+        plt.close()
+
+
+        ## Plot bar chart
+        baseline = np.ones(5) / 5
+        distorted = np.array([ data_dict['f_m_1_normalized'][-1], data_dict['f_m_2_normalized'][-1],
+                            data_dict['f_m_3_normalized'][-1], data_dict['f_m_4_normalized'][-1], data_dict['f_m_5_normalized'][-1]])
+    #     x1       = np.array(list(range(5)))
+        x1       = np.linspace(0,1/3,5)
+        plt.bar(x1,baseline, width=(1/3)*(1/4), label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.bar(x1, distorted, width=(1/3)*(1/4), label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
+    #     plt.hist(baseline, color = 'C3', alpha=0.5, ec="darkgrey")
+    #     plt.hist(distorted, color = 'C0', alpha=0.5, ec="darkgrey")
+
+        # plt.ylim(0,0.5)
+        plt.title("Distorted Probability of Damage Models")
+        plt.xlabel(r"$\gamma_3$")
+    #     plt.show()
+        plt.savefig(export_folder +self.params["model_type"]+ '/Dmg_Dist_IMSI_2023.png')
+        plt.close()
+
+
+        ## Plot bar chart
+        baseline = np.ones(3) / 3
+        distorted = np.array([ data_dict['g_j_1_normalized'][-1], data_dict['g_j_2_normalized'][-1],
+                            data_dict['g_j_3_normalized'][-1]])
+        x1       = np.linspace(0.10,0.20,3)
+        plt.bar(x1,baseline,  label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.bar(x1, distorted,  label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
+        plt.title("Distorted Probability of Technology Models")
+        plt.xlabel(r"$A'_g$")
+    #     plt.show()
+        plt.savefig(export_folder +self.params["model_type"]+ '/Tech_Dist_IMSI_2023.png')
+        plt.close()
+
+
+        beta_f =  1.86 / 1000
+        varsigma = 1.2 * 1.86 / 1000
+        bin_edges = np.arange(np.min(theta_ell),  np.max(theta_ell),  1e-3)
+        plt.hist(1000*theta_ell, bins = np.linspace(0.8,3.,16), color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.hist(1000*(theta_ell + varsigma * data_dict['h_simulation'][-1]), bins = np.linspace(0.8,3.,16), color = 'C0', alpha=0.5, ec="darkgrey")
+        # plt.ylim(0,30)
+        plt.title("Distorted Probability of Climate Models")
+        plt.xlabel("Climate Sensitivity")
+        plt.savefig(export_folder +self.params["model_type"]+ '/Climate_Dist_IMSI_2023.png')
+        plt.close()
+
+
+    def simulate_path_post_tech_post_jump(self, Year, dt, gamma_3, A_g_prime, log_xi, export_folder):
 
         ## Create folder
-        pathlib.Path(export_folder).mkdir(parents=True, exist_ok=True) 
+        pathlib.Path(export_folder+self.params["model_type"]).mkdir(parents=True, exist_ok=True) 
         
         ## Initial state 
         init_logK     = tf.math.log(739.0)
@@ -1483,8 +1705,9 @@ class model:
         i_g_list      = [self.i_g_nn(state)]
         i_d_list      = [self.i_d_nn(state)]
 
+        time_vec = np.linspace(0,Year,int(Year/dt))
 
-        for t in range(T):
+        for t in range(int(Year/dt)-1):
 
 
             ## Find investments
@@ -1527,43 +1750,47 @@ class model:
 
 
         plt.figure()
-        plt.plot([state.numpy()[0,0] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,0] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$\log K$')
-        plt.savefig(export_folder + "/logK_simulation.png")
-        np.savetxt(export_folder + "/log_K_simulation.txt", np.array([state.numpy()[0,0] for state in state_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/logK_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/log_K_simulation.txt", np.array([state.numpy()[0,0] for state in state_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([state.numpy()[0,1] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,1] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$R$')
-        plt.savefig(export_folder +  "/R_simulation.png")
-        np.savetxt(export_folder + "/R_simulation.txt", np.array([state.numpy()[0,1] for state in state_list]))
+        plt.savefig(export_folder +self.params["model_type"]+  "/R_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/R_simulation.txt", np.array([state.numpy()[0,1] for state in state_list]))
+        plt.close()
 
         plt.figure()
-        plt.plot([state.numpy()[0,2] for state in state_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[state.numpy()[0,2] for state in state_list])
+        plt.xlabel("Years")
         plt.title(r'$T$')
         plt.savefig(export_folder + "/T_simulation.png")
         np.savetxt(export_folder + "/T_simulation.txt", np.array([state.numpy()[0,2] for state in state_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([i_g.numpy()[0,0] for i_g in i_g_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[i_g.numpy()[0,0] for i_g in i_g_list])
+        plt.xlabel("Years")
         plt.title(r'$i_g$')
-        plt.savefig(export_folder + "/i_g_simulation.png")
-        np.savetxt(export_folder + "/i_g_simulation.txt", np.array([i_g.numpy()[0,0] for i_g in i_g_list]))
+        plt.savefig(export_folder +self.params["model_type"]+ "/i_g_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/i_g_simulation.txt", np.array([i_g.numpy()[0,0] for i_g in i_g_list]))
+        plt.close()
 
 
         plt.figure()
-        plt.plot([i_d.numpy()[0,0] for i_d in i_d_list])
-        plt.xlabel("month")
+        plt.plot(time_vec,[i_d.numpy()[0,0] for i_d in i_d_list])
+        plt.xlabel("Years")
         plt.title(r'$i_d$')
-        plt.savefig(export_folder + "/i_d_simulation.png")
-        np.savetxt(export_folder + "/i_d_simulation.txt", np.array([i_d.numpy()[0,0] for i_d in i_d_list]))
-
+        plt.savefig(export_folder +self.params["model_type"]+ "/i_d_simulation.png")
+        np.savetxt(export_folder +self.params["model_type"]+ "/i_d_simulation.txt", np.array([i_d.numpy()[0,0] for i_d in i_d_list]))
+        plt.close()
 
         Y      =  np.array([state.numpy()[0,2] for state in state_list])
         R      =  np.array([state.numpy()[0,1] for state in state_list])

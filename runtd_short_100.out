@@ -1,0 +1,7 @@
+Export folder: /scratch/midway3/bincheng/pre_tech_pre_damage_models_12042023_tensorboard_version_2
+modification
+Program starts Mon Dec  4 23:22:54 CST 2023
+Post-tech post-jump model has not yet been trained. Trainning now... 
+Tensorboard boolean = True
+Training with post_damage_post_tech
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12042023_tensorboard_version_2/pre_tech_post_damage/log_xi_idx_0

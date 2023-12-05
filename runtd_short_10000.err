@@ -1,0 +1,384 @@
+2023-12-04 22:25:31.837798: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2023-12-04 22:25:31.839660: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 22:25:31.877330: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 22:25:31.877787: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-12-04 22:25:34.737018: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2023-12-04 22:25:38.196018: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f2061665af0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+2023-12-04 22:32:02.218100: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2023-12-04 22:32:02.219868: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 22:32:02.258279: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 22:32:02.258731: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-12-04 22:32:03.570744: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2023-12-04 22:32:06.300915: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f4eeb86aa60>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+2023-12-04 22:34:16.260989: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2023-12-04 22:34:16.262759: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 22:34:16.301263: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 22:34:16.301713: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-12-04 22:34:17.373117: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2023-12-04 22:34:18.689450: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7f9ce5c8aaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable

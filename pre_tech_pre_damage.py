@@ -150,8 +150,8 @@ params['y_lower_bar']  = 1.5
 test_model = model.model(params)
 test_model.export_parameters()
 test_model.train()
-test_model.analyze()
+# test_model.analyze()
 
 for log_xi_idx in range(len(log_xi_list)):
-    test_model.simulate_path(1000, 1.0 / 12.0, log_xi_list[log_xi_idx], export_folder + "/log_xi_idx_" + str(log_xi_idx))
+    test_model.simulate_path(60, 1.0 / 12.0, log_xi_list[log_xi_idx], export_folder + "/log_xi_idx_" + str(log_xi_idx))
 

@@ -137,12 +137,10 @@ if not (pathlib.Path(params["export_folder"] + "/v_nn_checkpoint_post_damage_pos
     test_model.analyze()
 
     log_xi_list                  = [float(np.log(xi)) for xi in np.linspace(np.exp(log_xi_min) + 0.02, np.exp(log_xi_max) - 0.02, 10)]
-    print(export_folder)
-    print(log_xi_idx)
+
     for log_xi_idx in range(len(log_xi_list)):
-        test_model.simulate_path_post_tech_post_jump(1000, 1.0 / 12.0, 
-                                                        test_model.params["gamma_3"], 
-                                                        log_xi_list[log_xi_idx], export_folder + "/log_xi_idx_" + str(log_xi_idx))
+        print("Simulate Paths at "+ export_folder + "/log_xi_idx_" + str(log_xi_idx))
+        test_model.simulate_path_post_tech_post_jump(60, 1.0 / 12.0, test_model.params["gamma_3"], test_model.params["A_g"], log_xi_list[log_xi_idx], export_folder + "/log_xi_idx_" + str(log_xi_idx))
 
 
 #############################################
@@ -191,4 +189,4 @@ params["pretrained_path"]       = pretrained_path_pre_tech
 test_model = model.model(params)
 test_model.export_parameters()
 test_model.train()
-test_model.analyze()
+# test_model.analyze()
