@@ -174,3 +174,161 @@ To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other ope
 2023-12-04 23:24:08.587734: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
 2023-12-04 23:24:09.932112: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
 Skipping registering GPU devices...
+/home/bincheng/CC_NN/model.py:922: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:930: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:937: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:945: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:953: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:961: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:969: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:977: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:984: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+/home/bincheng/CC_NN/model.py:992: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.xscale('log')
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+Exception ignored in: <function AtomicFunction.__del__ at 0x7fe3f7eeeaf0>
+Traceback (most recent call last):
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 218, in __del__
+TypeError: 'NoneType' object is not subscriptable
+2023-12-04 23:25:15.701024: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2023-12-04 23:25:15.702781: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 23:25:15.740272: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-04 23:25:15.740712: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-12-04 23:25:16.827445: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2023-12-04 23:25:18.184649: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+Traceback (most recent call last):
+  File "pre_tech_pre_damage.py", line 150, in <module>
+    test_model = model.model(params)
+  File "/home/bincheng/CC_NN/model.py", line 166, in __init__
+    self.v_pre_tech_post_damage_nn.load_weights( self.params["v_pre_tech_post_damage_nn_path"]  + '/v_nn_checkpoint_pre_tech_post_damage')
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/keras/src/utils/traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/software/python-anaconda-2021.05-el8-x86_64/lib/python3.8/site-packages/tensorflow/python/training/py_checkpoint_reader.py", line 31, in error_translator
+    raise errors_impl.NotFoundError(None, None, error_message)
+tensorflow.python.framework.errors_impl.NotFoundError: Unsuccessful TensorSliceReader constructor: Failed to find any matching files for /scratch/midway3/bincheng/pre_tech_pre_damage_models_12042023_tensorboard_version_2/pre_tech_post_damage/pre_tech_post_damage/v_nn_checkpoint_pre_tech_post_damage
