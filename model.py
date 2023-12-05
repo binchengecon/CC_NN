@@ -1452,7 +1452,7 @@ class model:
 
         data_dict['h_simulation'] = h
 
-        with open(export_folder +self.params["model_type"] + '/data_dict.txt', 'a') as the_file:
+        with open(export_folder +"/"+self.params["model_type"] + '/data_dict.txt', 'a') as the_file:
             for key in data_dict.keys():
                 if "nn_config" not in key:
                     the_file.write( str(key) + ": " + str(data_dict[key]) + '\n')
@@ -1571,9 +1571,7 @@ class model:
             plt.close()
 
 
-        url = 'https://raw.githubusercontent.com/SuriChen1028/TwoCapital/main/data/model144.csv'
-
-        theta_ell = (pd.read_csv(url, header=None).to_numpy()[:,0]/1000).astype(np.float32)
+        theta_ell = (pd.read_csv("./model144.csv", header=None).to_numpy()[:,0]/1000).astype(np.float32)
 
         ################################################################
         ################################################################
@@ -1593,15 +1591,6 @@ class model:
         plt.savefig(export_folder +"/"+self.params["model_type"]+ "/Ems_Comp_IMSI_2023.png")
         plt.close()
 
-
-        plt.figure()
-        plt.plot(time_vec,data_dict["distorted_probability_tech"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
-        plt.xlabel('Years')
-        plt.title("Distorted Probability of a Technology Jump")
-        plt.ylim(0,1)
-        plt.legend(loc='upper left')
-        plt.savefig(export_folder +"/"+self.params["model_type"]+ '/TechJumpProb_Comp_IMSI_2023.png')
-        plt.close()
 
 
         plt.figure()
@@ -1646,7 +1635,7 @@ class model:
         plt.figure()
         plt.plot(time_vec,data_dict["distorted_tech_jump_prob"], label = r"$\xi = {:.3f}$".format(np.exp(log_xi)), color = 'tab:blue', linewidth='2')
         plt.xlabel('Years')
-        plt.title("Distorted Probability of a Tech Jump")
+        plt.title("Distorted Probability of a Technology Jump")
         plt.ylim(0,1)
         plt.legend(loc='lower right')
         plt.savefig(export_folder +"/"+self.params["model_type"]+ '/TechJumpProb_Comp_IMSI_2023.png')
@@ -1655,11 +1644,11 @@ class model:
 
         ## Plot bar chart
         baseline = np.ones(5) / 5
-        distorted = np.array([ data_dict['f_m_1_normalized'][-1], data_dict['f_m_2_normalized'][-1],
-                            data_dict['f_m_3_normalized'][-1], data_dict['f_m_4_normalized'][-1], data_dict['f_m_5_normalized'][-1]])
+        distorted = np.array([ data_dict['f_m_0_normalized'][-1], data_dict['f_m_1_normalized'][-1],
+                            data_dict['f_m_2_normalized'][-1], data_dict['f_m_3_normalized'][-1], data_dict['f_m_4_normalized'][-1]])
     #     x1       = np.array(list(range(5)))
         x1       = np.linspace(0,1/3,5)
-        plt.bar(x1,baseline, width=(1/3)*(1/4), label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.bar(x1, baseline, width=(1/3)*(1/4), label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
         plt.bar(x1, distorted, width=(1/3)*(1/4), label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
     #     plt.hist(baseline, color = 'C3', alpha=0.5, ec="darkgrey")
     #     plt.hist(distorted, color = 'C0', alpha=0.5, ec="darkgrey")
@@ -1674,8 +1663,8 @@ class model:
 
         ## Plot bar chart
         baseline = np.ones(3) / 3
-        distorted = np.array([ data_dict['g_j_1_normalized'][-1], data_dict['g_j_2_normalized'][-1],
-                            data_dict['g_j_3_normalized'][-1]])
+        distorted = np.array([ data_dict['g_j_0_normalized'][-1], data_dict['g_j_1_normalized'][-1],
+                            data_dict['g_j_2_normalized'][-1]])
         x1       = np.linspace(0.10,0.20,3)
         plt.bar(x1,baseline,  label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
         plt.bar(x1, distorted,  label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
