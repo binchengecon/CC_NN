@@ -1419,7 +1419,7 @@ class model:
 
         data_dict['f_m_sum'] = data_dict['f_m_avg']
 
-        for i in range(self.params["A_g_prime_length"]):
+        for i in range(self.params["gamma_3_length"]):
 
             data_dict['f_m_' + str(i) + '_simulation_norm'] = data_dict['f_m_' + str(i) + '_simulation']/  data_dict['f_m_sum']
 
@@ -1451,6 +1451,7 @@ class model:
         data_dict['distorted_tech_jump_prob'] = 1-np.exp(-np.cumsum(data_dict['distorted_tech_jump_intensity'] * (dt)))
 
         data_dict['h_simulation'] = h
+        data_dict['h_simulation'] = np.array(data_dict['h_simulation'])
 
         with open(export_folder +"/"+self.params["model_type"] + '/data_dict.txt', 'a') as the_file:
             for key in data_dict.keys():
@@ -1646,17 +1647,13 @@ class model:
         baseline = np.ones(5) / 5
         distorted = np.array([ data_dict['f_m_0_simulation_norm'][-1], data_dict['f_m_1_simulation_norm'][-1],
                             data_dict['f_m_2_simulation_norm'][-1], data_dict['f_m_3_simulation_norm'][-1], data_dict['f_m_4_simulation_norm'][-1]])
-    #     x1       = np.array(list(range(5)))
+        print("Climate Models: {}"  .format(distorted))
         x1       = np.linspace(0,1/3,5)
         plt.bar(x1, baseline, width=(1/3)*(1/4), label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
         plt.bar(x1, distorted, width=(1/3)*(1/4), label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
-    #     plt.hist(baseline, color = 'C3', alpha=0.5, ec="darkgrey")
-    #     plt.hist(distorted, color = 'C0', alpha=0.5, ec="darkgrey")
-
-        # plt.ylim(0,0.5)
         plt.title("Distorted Probability of Damage Models")
         plt.xlabel(r"$\gamma_3$")
-    #     plt.show()
+        plt.legend()
         plt.savefig(export_folder +"/"+self.params["model_type"]+ '/Dmg_Dist_IMSI_2023.png')
         plt.close()
 
@@ -1665,24 +1662,25 @@ class model:
         baseline = np.ones(3) / 3
         distorted = np.array([ data_dict['g_j_0_simulation_norm'][-1], data_dict['g_j_1_simulation_norm'][-1],
                             data_dict['g_j_2_simulation_norm'][-1]])
-        x1       = np.linspace(0.10,0.20,3)
+        print("Tech Models: {}"  .format(distorted))
+        x1       = np.linspace(0.10, 0.20, 3)
         plt.bar(x1,baseline,  label='Baseline', color = 'C3', alpha=0.5, ec="darkgrey")
         plt.bar(x1, distorted,  label='Distorted', color = 'C0', alpha=0.5, ec="darkgrey")
         plt.title("Distorted Probability of Technology Models")
         plt.xlabel(r"$A'_g$")
-    #     plt.show()
+        plt.legend()
         plt.savefig(export_folder +"/"+self.params["model_type"]+ '/Tech_Dist_IMSI_2023.png')
         plt.close()
 
 
         beta_f =  1.86 / 1000
         varsigma = 1.2 * 1.86 / 1000
-        bin_edges = np.arange(np.min(theta_ell),  np.max(theta_ell),  1e-3)
-        plt.hist(1000*theta_ell, bins = np.linspace(0.8,3.,16), color = 'C3', alpha=0.5, ec="darkgrey")
-        plt.hist(1000*(theta_ell + varsigma * data_dict['h_simulation'][-1]), bins = np.linspace(0.8,3.,16), color = 'C0', alpha=0.5, ec="darkgrey")
-        # plt.ylim(0,30)
+        print("Distortion: {}"  .format(varsigma * data_dict['h_simulation'][-1]))
+        plt.hist(1000*theta_ell, bins = np.linspace(0.8,3.,16), label = "Baseline", color = 'C3', alpha=0.5, ec="darkgrey")
+        plt.hist(1000*(theta_ell + varsigma * data_dict['h_simulation'][-1]), label = "Distorted", bins = np.linspace(0.8,3.,16), color = 'C0', alpha=0.5, ec="darkgrey")
         plt.title("Distorted Probability of Climate Models")
         plt.xlabel("Climate Sensitivity")
+        plt.legend()
         plt.savefig(export_folder +"/"+self.params["model_type"]+ '/Climate_Dist_IMSI_2023.png')
         plt.close()
 
