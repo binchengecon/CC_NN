@@ -1,0 +1,61 @@
+Export folder: /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000
+modification
+Program starts Tue Dec  5 11:10:04 CST 2023
+Post-tech post-jump model has not yet been trained. Trainning now... 
+Tensorboard boolean = True
+Training with post_damage_post_tech
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_0
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_1
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_2
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_3
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_4
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_5
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_6
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_7
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_8
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_9
+Tensorboard boolean = True
+pre_tech_post_damage
+pre_tech_post_damage
+Pre tech model detected. Building a neural network for i_I
+Training with pre_tech_post_damage
+Tensorboard boolean = False
+pre_damage_post_tech
+Training with pre_damage_post_tech
+Tensorboard boolean = True
+pre_tech_pre_damage
+pre_tech_pre_damage
+Pre tech model detected. Building a neural network for i_I
+Training with pre_tech_pre_damage
+Climate Models: [nan nan nan nan nan]
+Tech Models: [nan nan nan]
+Distortion: 0.0005259742655754089
+Climate Models: [0.1887492  0.19392972 0.19954452 0.20561033 0.21216625]
+Tech Models: [0.96225107 0.03604113 0.00170781]
+Distortion: 0.00043858681011199954
+Climate Models: [0.19112    0.19521837 0.19965126 0.20443264 0.20957781]
+Tech Models: [0.938891   0.0568973  0.00421171]
+Distortion: 0.0003766088980436325
+Climate Models: [0.19279236 0.19612296 0.199722   0.2035967  0.20776598]
+Tech Models: [0.91277164 0.07907517 0.0081532 ]
+Distortion: 0.00033031801092624663
+Climate Models: [0.19402349 0.19678442 0.19976746 0.20298302 0.20644161]
+Tech Models: [0.8854477  0.10108846 0.01346385]
+Distortion: 0.00029437871038913725
+Climate Models: [0.19496262 0.1972841  0.19980083 0.2025157  0.20543669]
+Tech Models: [0.8580529  0.12202226 0.01992483]
+Distortion: 0.00026565382093191145
+Climate Models: [0.19569558 0.1976771  0.19982499 0.20214884 0.20465347]
+Tech Models: [0.83134717 0.14139418 0.02725869]
+Distortion: 0.0002421477125287056
+Climate Models: [0.19627984 0.19798839 0.19984442 0.20185794 0.20402946]
+Tech Models: [0.8057956  0.15901414 0.03519037]
+Distortion: 0.000222559194624424
+Climate Models: [0.19675724 0.19824068 0.19985877 0.20162077 0.20352249]
+Tech Models: [0.7816475  0.1748728  0.04347966]
+Distortion: 0.000205973517537117
+Climate Models: [0.1971484  0.19844848 0.19987299 0.20142522 0.20310496]
+Tech Models: [0.75902003 0.18905109 0.05192894]
+Distortion: 0.00019173650228977203
+Program ends Tue Dec  5 15:40:52 CST 2023
+Elapsed time: 0 days 04 hr 30 min 48 sec

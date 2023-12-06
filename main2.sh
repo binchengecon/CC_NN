@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pre_tech_pre_damage_export_folder="/scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_100000"
+pre_tech_pre_damage_export_folder="/scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_100000_wihtout_v_diff_j_val"
 pre_tech_post_damage_export_folder="${pre_tech_pre_damage_export_folder}/pre_tech_post_damage"
 post_tech_pre_damage_export_folder="${pre_tech_pre_damage_export_folder}/post_tech_pre_damage"
 

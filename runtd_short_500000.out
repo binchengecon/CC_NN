@@ -1,19 +1,19 @@
-Export folder: /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000
+Export folder: /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val
 modification
-Program starts Tue Dec  5 11:10:04 CST 2023
+Program starts Wed Dec  6 00:48:29 CST 2023
 Post-tech post-jump model has not yet been trained. Trainning now... 
 Tensorboard boolean = True
 Training with post_damage_post_tech
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_0
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_1
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_2
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_3
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_4
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_5
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_6
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_7
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_8
-Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000/pre_tech_post_damage/log_xi_idx_9
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_0
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_1
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_2
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_3
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_4
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_5
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_6
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_7
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_8
+Simulate Paths at /scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000_wihtout_v_diff_j_val/pre_tech_post_damage/log_xi_idx_9
 Tensorboard boolean = True
 pre_tech_post_damage
 pre_tech_post_damage
@@ -30,32 +30,32 @@ Training with pre_tech_pre_damage
 Climate Models: [nan nan nan nan nan]
 Tech Models: [nan nan nan]
 Distortion: 0.0005259742655754089
-Climate Models: [0.1887492  0.19392972 0.19954452 0.20561033 0.21216625]
-Tech Models: [0.96225107 0.03604113 0.00170781]
+Climate Models: [0.18874596 0.19393083 0.19954261 0.2056115  0.21216907]
+Tech Models: [0.9622676  0.03602608 0.00170635]
 Distortion: 0.00043858681011199954
-Climate Models: [0.19112    0.19521837 0.19965126 0.20443264 0.20957781]
-Tech Models: [0.938891   0.0568973  0.00421171]
+Climate Models: [0.19112027 0.19522016 0.19965155 0.20442826 0.2095797 ]
+Tech Models: [0.93891436 0.05687701 0.00420861]
 Distortion: 0.0003766088980436325
-Climate Models: [0.19279236 0.19612296 0.199722   0.2035967  0.20776598]
-Tech Models: [0.91277164 0.07907517 0.0081532 ]
+Climate Models: [0.1927962  0.19612162 0.19972065 0.20359454 0.20776695]
+Tech Models: [0.9128002  0.0790517  0.00814814]
 Distortion: 0.00033031801092624663
-Climate Models: [0.19402349 0.19678442 0.19976746 0.20298302 0.20644161]
-Tech Models: [0.8854477  0.10108846 0.01346385]
+Climate Models: [0.19402662 0.1967846  0.19976535 0.20298165 0.20644179]
+Tech Models: [0.88548005 0.10106324 0.01345669]
 Distortion: 0.00029437871038913725
-Climate Models: [0.19496262 0.1972841  0.19980083 0.2025157  0.20543669]
-Tech Models: [0.8580529  0.12202226 0.01992483]
+Climate Models: [0.19496489 0.19728565 0.19979936 0.20251422 0.20543593]
+Tech Models: [0.85809016 0.1219945  0.01991528]
 Distortion: 0.00026565382093191145
-Climate Models: [0.19569558 0.1976771  0.19982499 0.20214884 0.20465347]
-Tech Models: [0.83134717 0.14139418 0.02725869]
+Climate Models: [0.19569601 0.19767603 0.19982544 0.20214853 0.20465392]
+Tech Models: [0.8313857  0.1413673  0.02724696]
 Distortion: 0.0002421477125287056
-Climate Models: [0.19627984 0.19798839 0.19984442 0.20185794 0.20402946]
-Tech Models: [0.8057956  0.15901414 0.03519037]
+Climate Models: [0.19627953 0.19798806 0.19984409 0.20185761 0.2040307 ]
+Tech Models: [0.80583394 0.15898894 0.03517714]
 Distortion: 0.000222559194624424
-Climate Models: [0.19675724 0.19824068 0.19985877 0.20162077 0.20352249]
-Tech Models: [0.7816475  0.1748728  0.04347966]
+Climate Models: [0.196758   0.19824068 0.19985877 0.20161925 0.2035233 ]
+Tech Models: [0.781688   0.17484717 0.04346483]
 Distortion: 0.000205973517537117
-Climate Models: [0.1971484  0.19844848 0.19987299 0.20142522 0.20310496]
-Tech Models: [0.75902003 0.18905109 0.05192894]
+Climate Models: [0.19714902 0.19845061 0.1998736  0.20142278 0.20310403]
+Tech Models: [0.75906    0.18902716 0.05191287]
 Distortion: 0.00019173650228977203
-Program ends Tue Dec  5 15:40:52 CST 2023
-Elapsed time: 0 days 04 hr 30 min 48 sec
+Program ends Wed Dec  6 05:17:21 CST 2023
+Elapsed time: 0 days 04 hr 28 min 52 sec

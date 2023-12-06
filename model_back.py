@@ -521,7 +521,7 @@ class model:
             FOC_I   = - self.params["delta"] / inside_log * tf.exp(-i_I_capped) + self.params["psi_0"] * self.params["psi_1"] * \
             tf.exp(-i_I_capped  * (self.params["psi_1"])) * tf.exp( self.params["psi_1"] * (logK -  log_I_g) )  * dv_dI_g 
 
-            return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, i_I, v_diff, dv_dI_g, marginal_util_c_over_k, FOC_g, FOC_d, FOC_I
+            return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, i_I, v_diff_j_vals, dv_dI_g, marginal_util_c_over_k, FOC_g, FOC_d, FOC_I
         else:
             return rhs, pv, dv_dY, c, 1 + self.params["phi_g"] * i_g, 1 + self.params["phi_d"] * i_d, marginal_util_c_over_k, FOC_g, FOC_d
 
@@ -533,7 +533,7 @@ class model:
         ## objectives.
 
         if self.params["n_dims"] == 4:
-            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
+            rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, i_I, v_diff_j_vals, dv_dI_g, marginal_utility_of_consumption_norm, FOC_g, FOC_d, FOC_I        = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
         else:
             rhs, pv, dv_dY, c, inside_log_i_g, inside_log_i_d, marginal_utility_of_consumption_norm, FOC_g, FOC_d                       = self.pde_rhs(logK, R, Y, gamma_3, A_g_prime, log_xi, log_I_g)
 
@@ -594,10 +594,9 @@ class model:
 
                 if self.params['n_dims'] == 4:
                     loss_v_diff = 0
-                    # for j in range(self.params["A_g_prime_length"]):
-                    #     loss_v_diff += -v_diff_j_vals[j] * tf.reshape( tf.cast( v_diff_j_vals[j] < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
-                    loss_v_diff += -v_diff * tf.reshape( tf.cast( v_diff < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
-
+                    for j in range(self.params["A_g_prime_length"]):
+                        loss_v_diff += -v_diff_j_vals[j] * tf.reshape( tf.cast( v_diff_j_vals[j] < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
+    
                     loss_dv_dI_g = - dv_dI_g  * tf.reshape( tf.cast( dv_dI_g < 0.0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
 
                     loss = tf.sqrt(tf.reduce_mean(tf.square( (rhs - pv) / self.flow_pv_norm )))  + tf.sqrt(tf.reduce_mean(tf.square(loss_dv_dY / self.marginal_utility_of_consumption_norm))) + tf.sqrt(tf.reduce_mean(tf.square(FOC_g / self.marginal_utility_of_consumption_norm))) + tf.sqrt(tf.reduce_mean(tf.square(FOC_d / self.marginal_utility_of_consumption_norm))) + tf.sqrt(tf.reduce_mean(tf.square(FOC_I / self.marginal_utility_of_consumption_norm))) + tf.sqrt(tf.reduce_mean(tf.square(loss_v_diff / self.marginal_utility_of_consumption_norm))) + tf.sqrt(tf.reduce_mean(tf.square(loss_dv_dI_g / self.marginal_utility_of_consumption_norm)))
@@ -618,10 +617,8 @@ class model:
                 ## loss associated with v_diff
                 loss_v_diff = 0
 
-                # for j in range(self.params["A_g_prime_length"]):
-                #     loss_v_diff += -v_diff_j_vals[j] * tf.reshape( tf.cast( v_diff_j_vals[j] < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
-
-                loss_v_diff += -v_diff * tf.reshape( tf.cast( v_diff < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
+                for j in range(self.params["A_g_prime_length"]):
+                    loss_v_diff += -v_diff_j_vals[j] * tf.reshape( tf.cast( v_diff_j_vals[j] < 0.000000001, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
                 loss_dv_dI_g = - dv_dI_g   * tf.reshape( tf.cast( dv_dI_g < 0, tf.float32 ),  [self.params["batch_size"], 1]) + 10e-4
 
                 return tf.sqrt(tf.reduce_mean(tf.square( (rhs - pv)  / self.flow_pv_norm  ))), -tf.reduce_mean(rhs  / self.flow_pv_norm ), tf.sqrt(tf.reduce_mean(tf.square(loss_dv_dY / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_c / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_g / self.marginal_utility_of_consumption_norm))), tf.sqrt(tf.reduce_mean(tf.square(loss_inside_log_i_d / self.marginal_utility_of_consumption_norm))),  tf.sqrt(tf.reduce_mean(tf.square(FOC_g / self.marginal_utility_of_consumption_norm))), \

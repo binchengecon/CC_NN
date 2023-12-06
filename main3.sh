@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pre_tech_pre_damage_export_folder="/scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_500000"
+pre_tech_pre_damage_export_folder="/scratch/midway3/bincheng/pre_tech_pre_damage_models_12052023_tensorboard_version_iteration_50000_wihtout_v_diff_j_val"
 pre_tech_post_damage_export_folder="${pre_tech_pre_damage_export_folder}/pre_tech_post_damage"
 post_tech_pre_damage_export_folder="${pre_tech_pre_damage_export_folder}/post_tech_pre_damage"
 
@@ -12,7 +12,7 @@ log_xi_min="-3.0"
 log_xi_max="-1.5"
 batch_size="32"
 # num_iterations="2000000"
-num_iterations="500000"
+num_iterations="50000"
 # num_iterations="100"
 # num_iterations="100"
 A_g_prime_min="0.1"
